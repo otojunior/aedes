@@ -36,7 +36,7 @@ public class Lista {
         No novo = new No(valor);
 
         // Caso 1 (if): Lista vazia: inserção do primeiro elemento.
-        if (this.primeiro == null && this.ultimo == null) {
+        if (this.primeiro == null) {
             this.primeiro = novo;
             this.ultimo = novo;
         }
@@ -59,7 +59,7 @@ public class Lista {
         No novo = new No(valor);
 
         // Caso 1: Lista vazia.
-        if (posicao == 0 && this.primeiro == null && this.ultimo == null) {
+        if (posicao == 0 && this.primeiro == null) {
             this.primeiro = novo;
             this.ultimo = novo;
         } else {
@@ -72,7 +72,7 @@ public class Lista {
                 this.primeiro = novo;
             }
             
-            // Caso 3: Inserir no meio ou no fim.
+            // Caso 3: Inserir no meio.
             else {
                 No esquerda = atual.anterior;
                 No direita = atual;
@@ -82,7 +82,39 @@ public class Lista {
                 direita.anterior = novo;
             }
         }
-        tamanho++;
+        this.tamanho++;
+    }
+
+    public void remover(int posicao) {
+        No atual = this.obter(posicao);
+
+        // Caso 1: Remoção do único elemento
+        if (atual == this.primeiro && atual == this.ultimo) {
+            this.primeiro = null;
+            this.ultimo = null;
+        }
+
+        // Caso 2: Remover no inicio
+        else if (atual == this.primeiro) {
+            this.primeiro = this.primeiro.proximo;
+            this.primeiro.anterior = null;
+        }
+
+        // Caso 3: Remover no fim
+        else if (atual == this.ultimo) {
+            this.ultimo = this.ultimo.anterior;
+            this.ultimo.proximo = null; 
+        }
+
+        // Caso 4: Remover no meio
+        else {
+            No esquerda = atual.anterior;
+            No direita = atual.proximo;
+            esquerda.proximo = direita;
+            direita.anterior = esquerda;
+        }
+
+        this.tamanho--;
     }
 
     /**
