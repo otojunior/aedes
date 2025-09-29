@@ -4,6 +4,7 @@
 package com.github.otojunior.aedes;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.NoSuchElementException;
 import org.junit.jupiter.api.*;
 
 /**
@@ -13,7 +14,7 @@ import org.junit.jupiter.api.*;
  */
 class ListaTest {
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de inserção em Lista vazia
      */
     @Test
     @DisplayName("Inserção em Lista vazia")
@@ -24,7 +25,7 @@ class ListaTest {
     }
 
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de inserção em Lista já com elementos.
      */
     @Test
     @DisplayName("Inserção em Lista já com elementos.")
@@ -34,9 +35,9 @@ class ListaTest {
         lista.inserir(2);
         assertEquals("1 2", lista.toString());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de inserção em posição 0 em lista vazia.
      */
     @Test
     @DisplayName("Inserção em posição 0 em lista vazia")
@@ -45,24 +46,24 @@ class ListaTest {
         lista.inserir(0, 1);
         assertEquals("1", lista.toString());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de inserção em posição 0 em lista vazia.
      */
     @Test
-    @DisplayName("Inserção em posição 0 em lista com 1 elemento")
+    @DisplayName("Inserção em posição 0 em lista vazia")
     void testInserirListaPosicao0Com1Elemento() {
         Lista lista = new Lista();
         lista.inserir(2);
         lista.inserir(0, 1);
         assertEquals("1 2", lista.toString());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de inserção em posição 0 em lista vazia
      */
     @Test
-    @DisplayName("Inserção em posição 0 em lista com 2 elementos")
+    @DisplayName("Inserção em posição 0 em lista vazia")
     void testInserirListaPosicao0Com2Elementos() {
         Lista lista = new Lista();
         lista.inserir(2);
@@ -70,12 +71,12 @@ class ListaTest {
         lista.inserir(0, 1);
         assertEquals("1 2 3", lista.toString());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de inserção em posição 0 em lista vazia.
      */
     @Test
-    @DisplayName("Inserção em posição 1 em lista vazia")
+    @DisplayName("Inserção em posição 0 em lista vazia")
     void testInserirListaPosicao1SemElementos() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
             Lista lista = new Lista();
@@ -86,10 +87,10 @@ class ListaTest {
     }
 
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de inserção em posição 0 em lista vazia.
      */
     @Test
-    @DisplayName("Inserção em posição 1 em lista com 1 elemento")
+    @DisplayName("Inserção em posição 0 em lista vazia")
     void testInserirListaPosicao1Com1Elemento() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
             Lista lista = new Lista();
@@ -102,12 +103,12 @@ class ListaTest {
             + "Só é permitido posições entre 0 e 0.",
             ex.getMessage());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de inserção em posição 0 em lista vazia.
      */
     @Test
-    @DisplayName("Inserção em posição 1 em lista com 2 elementos")
+    @DisplayName("Inserção em posição 0 em lista vazia")
     void testInserirListaPosicao1Com2Elementos() {
         Lista lista = new Lista();
         lista.inserir(1);
@@ -117,7 +118,7 @@ class ListaTest {
     }
 
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#tamanho()}.
+     * Teste de tamanho (quantidade de elementos) da Lista
      */
     @Test
     @DisplayName("Tamanho (quantidade de elementos) da Lista")
@@ -128,12 +129,12 @@ class ListaTest {
         lista.inserir(3);
         assertEquals(3, lista.tamanho());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de tamanho (quantidade de elementos) da Lista.
      */
     @Test
-    @DisplayName("Remoção em posição 0 em lista vazia")
+    @DisplayName("Tamanho (quantidade de elementos) da Lista")
     void testRemoverListaPosicao0SemElementos() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
             Lista lista = new Lista();
@@ -141,24 +142,24 @@ class ListaTest {
         });
         assertEquals("Lista vazia.", ex.getMessage());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de tamanho (quantidade de elementos) da Lista.
      */
     @Test
-    @DisplayName("Remoção em posição 0 em lista com 1 elemento")
+    @DisplayName("Tamanho (quantidade de elementos) da Lista")
     void testRemoverListaPosicao0Com1Elemento() {
         Lista lista = new Lista();
         lista.inserir(1);
         lista.remover(0);
-        assertEquals("(Lista Vazia)", lista.toString());
+        assertEquals("", lista.toString());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de tamanho (quantidade de elementos) da Lista.
      */
     @Test
-    @DisplayName("Remoção em posição 0 em lista com 2 elementos")
+    @DisplayName("Tamanho (quantidade de elementos) da Lista")
     void testRemoverListaPosicao0Com2Elementos() {
         Lista lista = new Lista();
         lista.inserir(1);
@@ -166,9 +167,9 @@ class ListaTest {
         lista.remover(0);
         assertEquals("2", lista.toString());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de remoção em posição 1 em lista vazia.
      */
     @Test
     @DisplayName("Remoção em posição 1 em lista vazia")
@@ -181,7 +182,7 @@ class ListaTest {
     }
 
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de remoção em posição 1 em lista com 1 elemento.
      */
     @Test
     @DisplayName("Remoção em posição 1 em lista com 1 elemento")
@@ -196,12 +197,12 @@ class ListaTest {
             + "Só é permitido posições entre 0 e 0.",
             ex.getMessage());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de remoção em posição 1 em lista com 1 elemento.
      */
     @Test
-    @DisplayName("Remoção em posição 1 em lista com 2 elementos")
+    @DisplayName("Remoção em posição 1 em lista com 1 elemento")
     void testRemoverirListaPosicao1Com2Elementos() {
         Lista lista = new Lista();
         lista.inserir(1);
@@ -209,9 +210,9 @@ class ListaTest {
         lista.remover(1);
         assertEquals("1", lista.toString());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de remoção em posição 1 em lista com 3 elementos.
      */
     @Test
     @DisplayName("Remoção em posição 1 em lista com 3 elementos")
@@ -223,9 +224,9 @@ class ListaTest {
         lista.remover(1);
         assertEquals("1 3", lista.toString());
     }
-    
+
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de remoção em posição 1 em lista com 3 elementos.
      */
     @Test
     @DisplayName("Remoção em posição 1 em lista com 3 elementos")
@@ -239,7 +240,7 @@ class ListaTest {
     }
 
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de remoção em posição 1 em lista com 5 elementos.
      */
     @Test
     @DisplayName("Remoção em posição 1 em lista com 5 elementos")
@@ -255,7 +256,7 @@ class ListaTest {
     }
 
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#inserir(int)}.
+     * Teste de remoção em posição 3 em lista com 5 elementos.
      */
     @Test
     @DisplayName("Remoção em posição 3 em lista com 5 elementos")
@@ -271,7 +272,59 @@ class ListaTest {
     }
 
     /**
-     * Test method for {@link com.github.otojunior.aedes.Lista#toString()}.
+     * Teste de Remoção no início.
+     */
+    @Test
+    @DisplayName("Remoção de início")
+    void testRemoverInicio() {
+        Lista lista = new Lista();
+        lista.inserir(1);
+        lista.inserir(2);
+        lista.inserir(3);
+        lista.removerinicio();
+        assertEquals("2 3", lista.toString());
+    }
+
+    /**
+     * Teste de Remoção no fim.
+     */
+    @Test
+    @DisplayName("Remoção de fim")
+    void testRemoverFim() {
+        Lista lista = new Lista();
+        lista.inserir(1);
+        lista.inserir(2);
+        lista.inserir(3);
+        lista.removerfim();
+        assertEquals("1 2", lista.toString());
+    }
+
+    @Test
+    @DisplayName("Obtenção de posição de um valor de emento que existe")
+    void testObterPosicaoElementoQueExiste() {
+        Lista lista = new Lista();
+        lista.inserir(10);
+        lista.inserir(20);
+        lista.inserir(30);
+        int index = lista.obterindice(20);
+        assertEquals(1, index);
+    }
+
+    @Test
+    @DisplayName("Obtenção de posição de um valor de emento que não existe")
+    void testObterPosicaoElementoQueNaoExiste() {
+        Exception ex = assertThrows(NoSuchElementException.class, () -> {
+            Lista lista = new Lista();
+            lista.inserir(10);
+            lista.inserir(20);
+            lista.inserir(30);
+            lista.obterindice(40);
+        });
+        assertEquals("Elemento 40 pesquisado não encontrado na lista.", ex.getMessage());
+    }
+
+    /**
+     * Teste de impressão da Lista.
      */
     @Test
     @DisplayName("Impressão da Lista")

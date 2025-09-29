@@ -3,8 +3,11 @@
  */
 package com.github.otojunior.aedes;
 
+import java.util.NoSuchElementException;
+import java.util.StringJoiner;
+
 /**
- * Estrutura de dados Lista.
+ * Estrutura de dados Lista duplamente encadeada.
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 28/09/2025
  */
@@ -19,6 +22,11 @@ public class Lista {
         private No anterior;
         private No proximo;
 
+        /**
+         * Construtor do No. Por padrão, em Java, as propriedades
+         * de classe são inicializadas com valor nulo. 
+         * @param valor Valor do elemento.
+         */
         private No(int valor) {
             this.valor = valor;
         }
@@ -34,14 +42,12 @@ public class Lista {
      */
     public void inserir(int valor) {
         No novo = new No(valor);
-
-        // Caso 1 (if): Lista vazia: inserção do primeiro elemento.
+        // Caso 1: Lista vazia: inserção do primeiro elemento.
         if (this.primeiro == null) {
             this.primeiro = novo;
             this.ultimo = novo;
         }
-
-        // Caso 2 (else): Lista não vazia: inserção dos demais elementos.
+        // Caso 2: Inserção dos demais elementos.
         else {
             this.ultimo.proximo = novo;
             novo.anterior = this.ultimo;
@@ -57,21 +63,18 @@ public class Lista {
      */
     public void inserir(int posicao, int valor) {
         No novo = new No(valor);
-
         // Caso 1: Lista vazia.
         if (posicao == 0 && this.primeiro == null) {
             this.primeiro = novo;
             this.ultimo = novo;
         } else {
             No atual = this.obter(posicao);
-            
             // Caso 2: Inserir no inicio.
             if (atual == this.primeiro) {
                 novo.proximo = atual;
                 atual.anterior = novo;
                 this.primeiro = novo;
             }
-            
             // Caso 3: Inserir no meio.
             else {
                 No esquerda = atual.anterior;
@@ -85,36 +88,64 @@ public class Lista {
         this.tamanho++;
     }
 
+    /**
+     * Remove elemento de uma posição específica da lista.
+     * @param posicao Posição do elemento a ser removido.
+     */
     public void remover(int posicao) {
         No atual = this.obter(posicao);
-
-        // Caso 1: Remoção do único elemento
-        if (atual == this.primeiro && atual == this.ultimo) {
-            this.primeiro = null;
-            this.ultimo = null;
-        }
-
-        // Caso 2: Remover no inicio
-        else if (atual == this.primeiro) {
+        // Caso 1: Remover no inicio
+        if (atual == this.primeiro) {
             this.primeiro = this.primeiro.proximo;
-            this.primeiro.anterior = null;
+            if (this.primeiro != null) {
+                this.primeiro.anterior = null;
+            }
         }
-
-        // Caso 3: Remover no fim
+        // Caso 2: Remover no fim
         else if (atual == this.ultimo) {
             this.ultimo = this.ultimo.anterior;
-            this.ultimo.proximo = null; 
+            if (this.ultimo != null) {
+                this.ultimo.proximo = null; 
+            }
         }
-
-        // Caso 4: Remover no meio
+        // Caso 3: Remover no meio
         else {
             No esquerda = atual.anterior;
             No direita = atual.proximo;
             esquerda.proximo = direita;
             direita.anterior = esquerda;
         }
-
         this.tamanho--;
+    }
+
+    /**
+     * Remove um elemento do início da lista. Anda com o ponteiro de [Primeiro] e se
+     * existir [Próximo-Nó], aterra o ponteiro de [Nó-Anterior].
+     */
+    public void removerinicio() {
+        if (this.primeiro != null) {
+            this.primeiro = this.primeiro.proximo;  // anda com o ponteiro para frente
+            if (this.primeiro != null) {
+                this.primeiro.anterior = null;
+            }
+        } else {
+            throw new NoSuchElementException("Lista Vazia");
+        }
+    }
+    
+    /**
+     * Remove um elemento do fim da lista. Anda com o ponteiro de [Ultimo] para trás e se
+     * existir [Nó-Anterior], aterra o ponteiro de [Próximo-Nó].
+     */
+    public void removerfim() {
+        if (this.ultimo != null) {
+            this.ultimo = this.ultimo.anterior;     // anda com o ponteiro para trás
+            if (this.ultimo != null) {
+                this.ultimo.proximo = null;
+            }
+        } else {
+            throw new NoSuchElementException("Lista Vazia");
+        }
     }
 
     /**
@@ -126,23 +157,43 @@ public class Lista {
     }
 
     /**
-     * Imprime a lista de frente para trás caso contenha elementos.
-     * @return Elementos da lista ou string (Lista Vazia)
+     * Obtém o No referente à posição específica na lista.
+     * @param posicao Posição requerida.
+     * @return No requerido
+     */
+    public int obterindice(int valor) {
+        No atual = this.primeiro;
+        int i = 0;
+        for (; i < this.tamanho && atual.valor != valor; i++) {
+            atual = atual.proximo;
+        }
+        /*
+         * No caso da pesquisa por valor dentro da lista, o loop vai parar em
+         * duas condições: ou o elemento foi encontrado ou o iterador chegou
+         * ao fim da lista. Estes casos são testados abaixo.
+         */
+        if (i < this.tamanho) {
+            return i;
+        } else {
+            throw new NoSuchElementException(
+                "Elemento " + valor + 
+                " pesquisado não encontrado na lista.");
+        }
+    }
+
+    /**
+     * Imprime os elementos da lista na tela.
+     * @return String representando a lista.
      */
     @Override
     public String toString() {
-        if (this.tamanho > 0) {
-            StringBuilder str = new StringBuilder();
-            No atual = this.primeiro;
-            for (int i = 0; i < this.tamanho; i++) {
-                str.append(atual.valor).append(' ');
-                atual = atual.proximo;
-            }
-            str.deleteCharAt(str.length()-1);
-            return str.toString();
-        } else {
-            return "(Lista Vazia)";
+        StringJoiner joiner = new StringJoiner(" ");
+        No atual = this.primeiro;
+        while (atual != null) {
+            joiner.add("" + atual.valor);
+            atual = atual.proximo;
         }
+        return joiner.toString();
     }
     
     /**
