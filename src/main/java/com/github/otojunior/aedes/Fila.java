@@ -7,11 +7,11 @@ import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 /**
- * Estrutura de dados Pilha.
+ * Estrutura de dados Fila.
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 28/09/2025
  */
-public class Pilha {
+public class Fila {
     /**
      * Estrurura de dados No
      * @author Oto Soares Coelho Junior (otojunior@gmail.com)
@@ -32,74 +32,84 @@ public class Pilha {
     }
 
     private int tamanho;
-    private No topo;
+    private No primeiro;
+    private No ultimo;
+    
 
     /**
-     * Insere um elemento no topo da pilha.
+     * Insere um elemento no fim da fila.
      * @param valor Valor a ser inserido.
      */
     public void inserir(int valor) {
         No novo = new No(valor);
-        novo.proximo = this.topo;
-        this.topo = novo;
+        // Caso 1: Fila vazia: inserção do primeiro elemento.
+        if (this.primeiro == null) {
+            this.primeiro = novo;
+            this.ultimo = novo;
+        }
+        // Caso 2: Inserção dos demais elementos.
+        else {
+            this.ultimo.proximo = novo;
+            this.ultimo = this.ultimo.proximo;
+        }
         this.tamanho++;
     }
 
     /**
-     * Remove um elemento do início da pilha.
+     * Remove um elemento do início da fila.
      */
     public int puxar() {
-        if (this.topo != null) {
-            No atual = this.topo;
-            this.topo = topo.proximo;
+        if (this.primeiro != null) {
+            No atual = this.primeiro;
+            this.primeiro = primeiro.proximo;
             this.tamanho--;
             return atual.valor;
         } else {
-            throw new NoSuchElementException("Pilha Vazia");
+            throw new NoSuchElementException("Fila Vazia");
         }
     }
 
     /**
-     * Retorna o tamanho da pilha.
-     * @return Tamanho da pilha (número de elementos na pilha).
+     * Retorna o tamanho da fila.
+     * @return Tamanho da fila (número de elementos na fila).
      */
     public int tamanho() {
         return this.tamanho;
     }
 
     /**
-     * Obtém o No referente à posição específica na pilha.
+     * Obtém o No referente à posição específica na fila.
      * @param posicao Posição requerida.
      * @return No requerido
      */
     public int obterindice(int valor) {
-        No atual = this.topo;
+        No atual = this.primeiro;
         int i = 0;
         for (; i < this.tamanho && atual.valor != valor; i++) {
             atual = atual.proximo;
         }
         /*
-         * No caso da pesquisa por valor dentro da pilha, o loop vai parar em
+         * No caso da pesquisa por valor dentro da fila, o loop vai parar em
          * duas condições: ou o elemento foi encontrado ou o iterador chegou
-         * ao fim da pilha. Estes casos são testados abaixo.
+         * ao fim da fila. Estes casos são testados abaixo.
          */
         if (i < this.tamanho) {
             return i;
         } else {
             throw new NoSuchElementException(
                 "Elemento " + valor + 
-                " pesquisado não encontrado na pilha.");
+                " pesquisado não encontrado na fila.");
         }
     }
 
     /**
-     * Imprime os elementos da pilha na tela.
-     * @return String representando a pilha.
+     * Imprime os elementos da fila na tela.
+     * @return String representando a fila.
      */
     @Override
     public String toString() {
         StringJoiner joiner = new StringJoiner(" ");
-        No atual = this.topo;
+        No atual = this.primeiro;
         while (atual != null) {
             joiner.add("" + atual.valor);
             atual = atual.proximo;
