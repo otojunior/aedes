@@ -128,6 +128,7 @@ public class Lista {
             if (this.primeiro != null) {
                 this.primeiro.anterior = null;
             }
+            this.tamanho--;
         } else {
             throw new NoSuchElementException("Lista Vazia");
         }
@@ -143,6 +144,7 @@ public class Lista {
             if (this.ultimo != null) {
                 this.ultimo.proximo = null;
             }
+            this.tamanho--;
         } else {
             throw new NoSuchElementException("Lista Vazia");
         }
