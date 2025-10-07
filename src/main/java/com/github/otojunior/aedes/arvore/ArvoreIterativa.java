@@ -81,20 +81,22 @@ public class ArvoreIterativa implements Arvore {
 
     /**
      * Remove um elemento da árvore.
-     * Passos:
-     * 1. Busca o nó p e guarda o pai q [while (p != null && p.valor != valor)]
-     * 2. Determina substituto y e trata casos 1–3 [if (p.direita == null) ... else if (p.esquerda == null)]
-     * 3. Caso 4: dois filhos (sucessor s) [laço while (s.esquerda != null) e substituição]
-     * 4. Reconexão ao pai q [if (q == null) raiz = y; else ...]
+     * Passo 1: Busca o nó a ser removido (atual) e seu pai (paiatual).
+     * Passo 2: Escolha do nó substituto.
+     * Passo 3: Reconexão.
      * @param valor Valor do elemento a ser removido.
      * @throws NoSuchElementException se o valor não for encontrado.
      */
     @Override
     public void remover(int valor) {
+        if (raiz == null) throw new NoSuchElementException("Árvore vazia");
+
         No atual = raiz;
         No paiatual = null;
 
-        // Passo 1: busca
+        /*
+         * Passo 1: Busca o nó a ser removido (atual) e seu pai (paiatual)
+         */
         while (atual != null && atual.valor != valor) {
             paiatual = atual;
             atual = (valor < atual.valor)
@@ -102,48 +104,53 @@ public class ArvoreIterativa implements Arvore {
                 : atual.direita;
         }
 
-        if (atual == null)
+        /*
+         * Passo 2: Escolha do nó substituto
+         */
+        if (atual == null) {
             throw new NoSuchElementException("Elemento " + valor + " não encontrado.");
-
-        // Passo 2: escolha do nó substituto
-        No substituto;  // nó que vai substituir [atual]
-        if (atual.direita == null) {
-            substituto = atual.esquerda;
-        } else if (atual.esquerda == null) {
-            substituto = atual.direita;
         } else {
-            // dois filhos: encontra o sucessor
-            No sucessor = atual.direita;
-            No paisucessor = atual;
-            while (sucessor.esquerda != null) {
-                paisucessor = sucessor;
-                sucessor = sucessor.esquerda;
-            }
-
-            // copia valor do sucessor
-            atual.valor = sucessor.valor;
-
-            // remove sucessor
-            if (paisucessor == atual) {
-                paisucessor.direita = sucessor.direita;
+            No substituto;
+            if (atual.esquerda == null || atual.direita == null) {
+                // Caso 1: Nenhum ou um filho.
+                substituto = (atual.esquerda != null) ? atual.esquerda : atual.direita;
             } else {
-                paisucessor.esquerda = sucessor.direita;
+                // Caso 2: Dois filhos: encontra sucessor e remove
+                No sucessor = atual.direita;
+                No paisucessor = atual;
+                while (sucessor.esquerda != null) {
+                    paisucessor = sucessor;
+                    sucessor = sucessor.esquerda;
+                }
+
+                // Copia valor do sucessor
+                atual.valor = sucessor.valor;   
+
+                // Remove o sucessor (tem no máximo um filho direito)
+                if (paisucessor == atual) {
+                    paisucessor.direita = sucessor.direita;
+                } else {
+                    paisucessor.esquerda = sucessor.direita;
+                }
+
+                // Manter caminho uniforme até reconexão
+                substituto = atual;
             }
 
+            /*
+             * Passo 3: Reconexão
+             */
+            if (atual != this.raiz) {
+                if (atual == paiatual.esquerda) {
+                    paiatual.esquerda = substituto;
+                } else {
+                    paiatual.direita = substituto;
+                }
+            } else {
+                this.raiz = substituto;
+            }
             this.tamanho--;
-            return;
         }
-
-        // Passo 3: reconexão
-        if (paiatual == null) {
-            raiz = substituto;
-        } else if (atual == paiatual.esquerda) {
-            paiatual.esquerda = substituto;
-        } else {
-            paiatual.direita = substituto;
-        }
-
-        this.tamanho--;
     }
 
     /**
