@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.otojunior.aedes;
+package com.github.otojunior.aedes.arvore;
 
 import java.util.NoSuchElementException;
 
@@ -11,14 +11,14 @@ import java.util.NoSuchElementException;
  * @since 05/10/2025
  * @see https://github.com/otojunior
  */
-public class Arvore {
+public class ArvoreRecursiva implements Arvore {
     /**
      * Estrurura de dados No
      * @author Oto Soares Coelho Junior (otojunior@gmail.com)
      * @since 05/10/2025
      * @see https://github.com/otojunior
      */
-    private class No {
+    private static class No {
         private int valor;
         private No esquerda;
         private No direita;
@@ -35,18 +35,9 @@ public class Arvore {
      * Insere um elemento na árvore.
      * @param valor Valor a ser inserido.
      */
+    @Override
     public void inserir(int valor) {
         this.raiz = inserir(this.raiz, valor);
-    }
-
-    /**
-     * Obtém um nó com o valor especificado.
-     * @param valor Valor a ser buscado.
-     * @return Nó encontrado.
-     * @throws NoSuchElementException se o valor não for encontrado.
-     */
-    public No obter(int valor) {
-        return obter(raiz, valor);
     }
 
     /**
@@ -54,6 +45,7 @@ public class Arvore {
      * @param valor Valor do elemento a ser removido.
      * @throws NoSuchElementException se o valor não for encontrado.
      */
+    @Override
     public void remover(int valor) {
         raiz = remover(raiz, valor);
     }
@@ -62,6 +54,7 @@ public class Arvore {
      * Retorna o tamanho da árvore.
      * @return Tamanho da árvore.
      */
+    @Override
     public int tamanho() {
         return this.tamanho;
     }
@@ -96,6 +89,17 @@ public class Arvore {
             // se for igual, ignora (sem duplicatas)
             return no;
         }
+    }
+
+    /**
+     * Obtém um nó com o valor especificado.
+     * @param valor Valor a ser buscado.
+     * @return Nó encontrado.
+     * @throws NoSuchElementException se o valor não for encontrado.
+     */
+    @SuppressWarnings("unused")
+    private No obter(int valor) {
+        return obter(raiz, valor);
     }
 
     /**

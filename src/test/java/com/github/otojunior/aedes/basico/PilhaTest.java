@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.otojunior.aedes;
+package com.github.otojunior.aedes.basico;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

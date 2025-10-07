@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.otojunior.aedes;
+package com.github.otojunior.aedes.basico;
 
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
@@ -17,7 +17,7 @@ public class Lista {
      * @author Oto Soares Coelho Junior (otojunior@gmail.com)
      * @since 28/09/2025
      */
-    private class No {
+    private static class No {
         private int valor;
         private No anterior;
         private No proximo;

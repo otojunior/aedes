@@ -1,29 +1,20 @@
 /**
  * 
  */
-package com.github.otojunior.aedes;
+package com.github.otojunior.aedes.arvore;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Teste de unidade da Árvore
+ * Teste de unidade da Árvore Recursiva.
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 05/10/2025
  * @see https://github.com/otojunior
  */
-class ArvoreTest {
-    private Arvore arvore; 
-
-    /**
-     * Configuração inicial para cada teste.
-     */
-    @BeforeEach
-    void setup() {
-        this.arvore = new Arvore();
-    }
+ abstract class ArvoreTest {
+    Arvore arvore; 
 
     /**
      * Teste de inserção em Arvore já com elementos.
