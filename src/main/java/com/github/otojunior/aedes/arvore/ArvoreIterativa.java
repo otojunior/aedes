@@ -89,67 +89,70 @@ public class ArvoreIterativa implements Arvore {
      */
     @Override
     public void remover(int valor) {
-        if (raiz == null) throw new NoSuchElementException("Árvore vazia");
-
-        No atual = raiz;
-        No paiatual = null;
-
-        /*
-         * Passo 1: Busca o nó a ser removido (atual) e seu pai (paiatual)
-         */
-        while (atual != null && atual.valor != valor) {
-            paiatual = atual;
-            atual = (valor < atual.valor)
-                ? atual.esquerda
-                : atual.direita;
-        }
-
-        /*
-         * Passo 2: Escolha do nó substituto
-         */
-        if (atual == null) {
-            throw new NoSuchElementException("Elemento " + valor + " não encontrado.");
+        if (this.raiz == null) {
+            throw new NoSuchElementException("Árvore vazia");
         } else {
-            No substituto;
-            if (atual.esquerda == null || atual.direita == null) {
-                // Caso 1: Nenhum ou um filho.
-                substituto = (atual.esquerda != null) ? atual.esquerda : atual.direita;
-            } else {
-                // Caso 2: Dois filhos: encontra sucessor e remove
-                No sucessor = atual.direita;
-                No paisucessor = atual;
-                while (sucessor.esquerda != null) {
-                    paisucessor = sucessor;
-                    sucessor = sucessor.esquerda;
-                }
-
-                // Copia valor do sucessor
-                atual.valor = sucessor.valor;   
-
-                // Remove o sucessor (tem no máximo um filho direito)
-                if (paisucessor == atual) {
-                    paisucessor.direita = sucessor.direita;
-                } else {
-                    paisucessor.esquerda = sucessor.direita;
-                }
-
-                // Manter caminho uniforme até reconexão
-                substituto = atual;
-            }
-
+            No atual = this.raiz;
+            No paiatual = null;
             /*
-             * Passo 3: Reconexão
+             * Passo 1: Busca o nó a ser removido (atual) e seu pai (paiatual)
              */
-            if (atual != this.raiz) {
-                if (atual == paiatual.esquerda) {
-                    paiatual.esquerda = substituto;
-                } else {
-                    paiatual.direita = substituto;
-                }
-            } else {
-                this.raiz = substituto;
+            while (atual != null && atual.valor != valor) {
+                paiatual = atual;
+                atual = (valor < atual.valor)
+                    ? atual.esquerda
+                    : atual.direita;
             }
-            this.tamanho--;
+            /*
+             * Passo 2: Escolha do nó substituto
+             */
+            if (atual == null) {
+                throw new NoSuchElementException(
+                    "Elemento " + valor + " não encontrado.");
+            } else {
+                No substituto;
+                if (atual.esquerda == null || atual.direita == null) {
+                    // Caso 1: Nenhum ou um filho.
+                    substituto = (atual.esquerda != null)
+                        ? atual.esquerda
+                        : atual.direita;
+                } else {
+                    // Caso 2: Dois filhos: encontra sucessor e remove
+                    No sucessor = atual.direita;
+                    No paisucessor = atual;
+                    while (sucessor.esquerda != null) {
+                        paisucessor = sucessor;
+                        sucessor = sucessor.esquerda;
+                    }
+
+                    // Copia valor do sucessor
+                    atual.valor = sucessor.valor;
+
+                    // Remove o sucessor (tem no máximo um filho direito)
+                    if (paisucessor == atual) {
+                        paisucessor.direita = sucessor.direita;
+                    } else {
+                        paisucessor.esquerda = sucessor.direita;
+                    }
+
+                    // Manter caminho uniforme até reconexão
+                    substituto = atual;
+                }
+
+                /*
+                 * Passo 3: Reconexão
+                 */
+                if (atual != this.raiz) {
+                    if (atual == paiatual.esquerda) {
+                        paiatual.esquerda = substituto;
+                    } else {
+                        paiatual.direita = substituto;
+                    }
+                } else {
+                    this.raiz = substituto;
+                }
+                this.tamanho--;
+            } 
         }
     }
 
