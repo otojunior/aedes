@@ -3,9 +3,12 @@
  */
 package com.github.otojunior.aedes;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.NoSuchElementException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * Teste de unidade da Pilha
@@ -13,15 +16,14 @@ import org.junit.jupiter.api.*;
  * @since 28/09/2025
  */
 class PilhaTest {
+    private Pilha pilha;
+
     /**
-     * Teste de inserção em Pilha vazia
+     * Configuração inicial antes de cada teste.
      */
-    @Test
-    @DisplayName("Inserção em Pilha vazia")
-    void testInserirPilhaVazia() {
-        Pilha pilha = new Pilha();
-        pilha.inserir(1);
-        assertEquals("1", pilha.toString());
+    @BeforeEach
+    void setup() {
+        this.pilha = new Pilha();
     }
 
     /**
@@ -30,23 +32,50 @@ class PilhaTest {
     @Test
     @DisplayName("Inserção em Pilha já com elementos.")
     void testInserirPilhaComElementos() {
-        Pilha pilha = new Pilha();
-        pilha.inserir(1);
-        pilha.inserir(2);
-        assertEquals("2 1", pilha.toString());
+        this.pilha.inserir(1);
+        this.pilha.inserir(2);
+        assertEquals(2, this.pilha.tamanho());
+        assertEquals("2 1", this.pilha.toString());
     }
 
     /**
-     * Teste de tamanho (quantidade de elementos) da Pilha
+     * Teste de inserção em Pilha vazia
      */
     @Test
-    @DisplayName("Tamanho (quantidade de elementos) da Pilha")
-    void testTamanho() {
-        Pilha pilha = new Pilha();
-        pilha.inserir(1);
-        pilha.inserir(2);
-        pilha.inserir(3);
-        assertEquals(3, pilha.tamanho());
+    @DisplayName("Inserção em Pilha vazia")
+    void testInserirPilhaVazia() {
+        this.pilha.inserir(1);
+        assertEquals(1, this.pilha.tamanho());
+        assertEquals("1", this.pilha.toString());
+    }
+
+    /**
+     * Teste de obtenção de posição de um valor de emento que existe
+     */
+    @Test
+    @DisplayName("Obtenção de posição de um valor de emento que existe")
+    void testObterPosicaoElementoQueExiste() {
+        this.pilha.inserir(10);
+        this.pilha.inserir(20);
+        this.pilha.inserir(30);
+        this.pilha.inserir(40);
+        int index = this.pilha.obterindice(30);
+        assertEquals(1, index);
+    }
+
+    /**
+     * Teste de obtenção de posição de um valor de emento que não existe
+     */
+    @Test
+    @DisplayName("Obtenção de posição de um valor de emento que não existe")
+    void testObterPosicaoElementoQueNaoExiste() {
+        Exception ex = assertThrows(NoSuchElementException.class, () -> {
+            this.pilha.inserir(10);
+            this.pilha.inserir(20);
+            this.pilha.inserir(30);
+            this.pilha.obterindice(40);
+        });
+        assertEquals("Elemento 40 pesquisado não encontrado na pilha.", ex.getMessage());
     }
 
     /**
@@ -55,37 +84,24 @@ class PilhaTest {
     @Test
     @DisplayName("Puxar elemento")
     void testRemoverInicio() {
-        Pilha pilha = new Pilha();
-        pilha.inserir(1);
-        pilha.inserir(2);
-        pilha.inserir(3);
-        int valor = pilha.puxar();
+        this.pilha.inserir(1);
+        this.pilha.inserir(2);
+        this.pilha.inserir(3);
+        int valor = this.pilha.puxar();
+        assertEquals(2, this.pilha.tamanho());
         assertEquals(3, valor);
     }
 
+    /**
+     * Teste de tamanho (quantidade de elementos) da Pilha
+     */
     @Test
-    @DisplayName("Obtenção de posição de um valor de emento que existe")
-    void testObterPosicaoElementoQueExiste() {
-        Pilha pilha = new Pilha();
-        pilha.inserir(10);
-        pilha.inserir(20);
-        pilha.inserir(30);
-        pilha.inserir(40);
-        int index = pilha.obterindice(30);
-        assertEquals(1, index);
-    }
-
-    @Test
-    @DisplayName("Obtenção de posição de um valor de emento que não existe")
-    void testObterPosicaoElementoQueNaoExiste() {
-        Exception ex = assertThrows(NoSuchElementException.class, () -> {
-            Pilha pilha = new Pilha();
-            pilha.inserir(10);
-            pilha.inserir(20);
-            pilha.inserir(30);
-            pilha.obterindice(40);
-        });
-        assertEquals("Elemento 40 pesquisado não encontrado na pilha.", ex.getMessage());
+    @DisplayName("Tamanho (quantidade de elementos) da Pilha")
+    void testTamanho() {
+        this.pilha.inserir(1);
+        this.pilha.inserir(2);
+        this.pilha.inserir(3);
+        assertEquals(3, this.pilha.tamanho());
     }
 
     /**
@@ -94,10 +110,9 @@ class PilhaTest {
     @Test
     @DisplayName("Impressão da Pilha")
     void testToString() {
-        Pilha pilha = new Pilha();
-        pilha.inserir(11);
-        pilha.inserir(22);
-        pilha.inserir(33);
-        assertEquals("33 22 11", pilha.toString());
+        this.pilha.inserir(11);
+        this.pilha.inserir(22);
+        this.pilha.inserir(33);
+        assertEquals("33 22 11", this.pilha.toString());
     }
 }
