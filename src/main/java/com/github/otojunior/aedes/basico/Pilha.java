@@ -35,6 +35,20 @@ public class Pilha {
     private No topo;
 
     /**
+     * Imprime os elementos da pilha na tela.
+     * @return String representando a pilha.
+     */
+    public String imprimir() {
+        StringJoiner strjoin = new StringJoiner(" ");
+        No atual = this.topo;
+        while (atual != null) {
+            strjoin.add(String.valueOf(atual.valor));
+            atual = atual.proximo;
+        }
+        return strjoin.toString();
+    }
+
+    /**
      * Insere um elemento no topo da pilha.
      * @param valor Valor a ser inserido.
      */
@@ -43,28 +57,6 @@ public class Pilha {
         novo.proximo = this.topo;
         this.topo = novo;
         this.tamanho++;
-    }
-
-    /**
-     * Remove um elemento do início da pilha.
-     */
-    public int puxar() {
-        if (this.topo != null) {
-            No atual = this.topo;
-            this.topo = topo.proximo;
-            this.tamanho--;
-            return atual.valor;
-        } else {
-            throw new NoSuchElementException("Pilha Vazia");
-        }
-    }
-
-    /**
-     * Retorna o tamanho da pilha.
-     * @return Tamanho da pilha (número de elementos na pilha).
-     */
-    public int tamanho() {
-        return this.tamanho;
     }
 
     /**
@@ -93,17 +85,24 @@ public class Pilha {
     }
 
     /**
-     * Imprime os elementos da pilha na tela.
-     * @return String representando a pilha.
+     * Remove um elemento do início da pilha.
      */
-    @Override
-    public String toString() {
-        StringJoiner joiner = new StringJoiner(" ");
-        No atual = this.topo;
-        while (atual != null) {
-            joiner.add("" + atual.valor);
-            atual = atual.proximo;
+    public int puxar() {
+        if (this.topo != null) {
+            No atual = this.topo;
+            this.topo = topo.proximo;
+            this.tamanho--;
+            return atual.valor;
+        } else {
+            throw new NoSuchElementException("Pilha Vazia");
         }
-        return joiner.toString();
+    }
+
+    /**
+     * Retorna o tamanho da pilha.
+     * @return Tamanho da pilha (número de elementos na pilha).
+     */
+    public int tamanho() {
+        return this.tamanho;
     }
 }

@@ -35,7 +35,7 @@ class FilaTest {
         this.fila.inserir(1);
         this.fila.inserir(2);
         assertEquals(2, this.fila.tamanho());
-        assertEquals("1 2", this.fila.toString());
+        assertEquals("1 2", this.fila.imprimir());
     }
 
     /**
@@ -46,7 +46,7 @@ class FilaTest {
     void testInserirFilaVazia() {
         this.fila.inserir(1);
         assertEquals(1, this.fila.tamanho());
-        assertEquals("1", this.fila.toString());
+        assertEquals("1", this.fila.imprimir());
     }
 
     /**
@@ -113,6 +113,6 @@ class FilaTest {
         this.fila.inserir(11);
         this.fila.inserir(22);
         this.fila.inserir(33);
-        assertEquals("11 22 33", this.fila.toString());
+        assertEquals("11 22 33", this.fila.imprimir());
     }
 }

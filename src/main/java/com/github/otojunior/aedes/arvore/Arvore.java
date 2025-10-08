@@ -13,4 +13,5 @@ public interface Arvore {
     public void inserir(int valor);
     public void remover(int valor);
     public int tamanho();
+    public String imprimir();
 }

@@ -35,7 +35,7 @@ class ListaTest {
         this.lista.inserir(1);
         this.lista.inserir(2);
         assertEquals(2, this.lista.tamanho());
-        assertEquals("1 2", this.lista.toString());
+        assertEquals("1 2", this.lista.imprimir());
     }
 
     /**
@@ -47,7 +47,7 @@ class ListaTest {
         this.lista.inserir(2);
         this.lista.inserir(0, 1);
         assertEquals(2, this.lista.tamanho());
-        assertEquals("1 2", this.lista.toString());
+        assertEquals("1 2", this.lista.imprimir());
     }
 
     /**
@@ -60,7 +60,7 @@ class ListaTest {
         this.lista.inserir(3);
         this.lista.inserir(0, 1);
         assertEquals(3, this.lista.tamanho());
-        assertEquals("1 2 3", this.lista.toString());
+        assertEquals("1 2 3", this.lista.imprimir());
     }
 
     /**
@@ -71,7 +71,7 @@ class ListaTest {
     void testInserirListaPosicao0SemElementos() {
         this.lista.inserir(0, 1);
         assertEquals(1, this.lista.tamanho());
-        assertEquals("1", this.lista.toString());
+        assertEquals("1", this.lista.imprimir());
     }
 
     /**
@@ -83,7 +83,7 @@ class ListaTest {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
             this.lista.inserir(2);
             this.lista.inserir(1, 1);
-            assertEquals("1", this.lista.toString());
+            assertEquals("1", this.lista.imprimir());
         });
         assertEquals(
             "Erro ao acessar a posição 1. "
@@ -101,7 +101,7 @@ class ListaTest {
         this.lista.inserir(3);
         this.lista.inserir(1, 2);
         assertEquals(3, this.lista.tamanho());
-        assertEquals("1 2 3", this.lista.toString());
+        assertEquals("1 2 3", this.lista.imprimir());
     }
 
     /**
@@ -112,7 +112,7 @@ class ListaTest {
     void testInserirListaPosicao1SemElementos() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
             this.lista.inserir(1, 1);
-            assertEquals("1", this.lista.toString());
+            assertEquals("1", this.lista.imprimir());
         });
         assertEquals("Lista vazia.", ex.getMessage());
     }
@@ -125,7 +125,7 @@ class ListaTest {
     void testInserirListaVazia() {
         this.lista.inserir(1);
         assertEquals(1, this.lista.tamanho());
-        assertEquals("1", this.lista.toString());
+        assertEquals("1", this.lista.imprimir());
     }
 
     /**
@@ -167,7 +167,7 @@ class ListaTest {
         this.lista.inserir(3);
         this.lista.removerfim();
         assertEquals(2, this.lista.tamanho());
-        assertEquals("1 2", this.lista.toString());
+        assertEquals("1 2", this.lista.imprimir());
     }
 
     /**
@@ -181,7 +181,7 @@ class ListaTest {
         this.lista.inserir(3);
         this.lista.removerinicio();
         assertEquals(2, this.lista.tamanho());        
-        assertEquals("2 3", this.lista.toString());
+        assertEquals("2 3", this.lista.imprimir());
     }
 
     /**
@@ -194,7 +194,7 @@ class ListaTest {
         this.lista.inserir(2);
         this.lista.remover(1);
         assertEquals(1, this.lista.tamanho());
-        assertEquals("1", this.lista.toString());
+        assertEquals("1", this.lista.imprimir());
     }
 
     /**
@@ -208,7 +208,7 @@ class ListaTest {
         this.lista.inserir(3);
         this.lista.remover(1);
         assertEquals(2, this.lista.tamanho());
-        assertEquals("1 3", this.lista.toString());
+        assertEquals("1 3", this.lista.imprimir());
     }
 
     /**
@@ -224,7 +224,7 @@ class ListaTest {
         this.lista.inserir(5);
         this.lista.remover(1);
         assertEquals(4, this.lista.tamanho());
-        assertEquals("1 3 4 5", this.lista.toString());
+        assertEquals("1 3 4 5", this.lista.imprimir());
     }
 
     /**
@@ -238,7 +238,7 @@ class ListaTest {
         this.lista.inserir(3);
         this.lista.remover(2);
         assertEquals(2, this.lista.tamanho());
-        assertEquals("1 2", this.lista.toString());
+        assertEquals("1 2", this.lista.imprimir());
     }
 
     /**
@@ -254,7 +254,7 @@ class ListaTest {
         this.lista.inserir(5);
         this.lista.remover(4);
         assertEquals(4, this.lista.tamanho());
-        assertEquals("1 2 3 4", this.lista.toString());
+        assertEquals("1 2 3 4", this.lista.imprimir());
     }
 
     /**
@@ -266,7 +266,7 @@ class ListaTest {
         this.lista.inserir(1);
         this.lista.remover(0);
         assertEquals(0, this.lista.tamanho());
-        assertEquals("", this.lista.toString());
+        assertEquals("", this.lista.imprimir());
     }
 
     /**
@@ -279,7 +279,7 @@ class ListaTest {
         this.lista.inserir(2);
         this.lista.remover(0);
         assertEquals(1, this.lista.tamanho());
-        assertEquals("2", this.lista.toString());
+        assertEquals("2", this.lista.imprimir());
     }
 
     /**
@@ -344,6 +344,6 @@ class ListaTest {
         this.lista.inserir(22);
         this.lista.inserir(33);
         assertEquals(3, this.lista.tamanho());
-        assertEquals("11 22 33", this.lista.toString());
+        assertEquals("11 22 33", this.lista.imprimir());
     }
 }

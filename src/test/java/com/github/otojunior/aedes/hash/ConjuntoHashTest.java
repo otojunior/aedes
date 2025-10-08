@@ -1,94 +1,100 @@
 package com.github.otojunior.aedes.hash;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ConjuntoHashTest {
-    private ConjuntoHash conjunto;
-    private ConjuntoHash conjuntoColisao;
+abstract class ConjuntoHashTest {
+    ConjuntoHash conjunto;
 
-    @BeforeEach
-    void setup() {
-        this.conjunto = new ConjuntoHash(5);
-        this.conjuntoColisao = new ConjuntoHash(1);
+    /**
+     * Verifica se o conjunto contém um elemento.
+     */
+    void contem() {
+        conjunto.inserir(1);
+        conjunto.inserir(2);
+        conjunto.inserir(3);
+        assertTrue(conjunto.contem(2));
+    }
+
+    /**
+     * Verifica se o conjunto não contém um elemento.
+     */
+    void naoContem() {
+        conjunto.inserir(1);
+        conjunto.inserir(2);
+        conjunto.inserir(3);
+        assertFalse(conjunto.contem(4));
+    }
+
+    /**
+     * Impressão do Conjunto.
+     */
+    String imprimir() {
+        conjunto.inserir(11);
+        conjunto.inserir(22);
+        conjunto.inserir(33);
+        return conjunto.imprimir();
+    }
+
+    /**
+     * Inserção em Conjunto já com elementos.
+     * 
+     */
+    String inserirConjuntoComElementos() {
+        conjunto.inserir(1);
+        conjunto.inserir(2);
+        conjunto.inserir(3);
+        conjunto.inserir(4);
+        conjunto.inserir(5);
+        assertEquals(5, conjunto.tamanho());
+        return conjunto.imprimir();
     }
     
     /**
-     * Teste de inserção em Conjunto já com elementos.
+     * Inserção em Conjunto vazia
      */
-    @Test
-    @DisplayName("Inserção em Conjunto já com elementos.")
-    void testInserirConjuntoComElementos() {
-        this.conjunto.inserir(1);
-        this.conjunto.inserir(2);
-        System.out.println(this.conjunto);
-        assertEquals(2, this.conjunto.tamanho());
-        assertEquals("""
-            1: 1
-            2: 2""", this.conjunto.toString());
+    String inserirConjuntoVazio() {
+        conjunto.inserir(1);
+        assertEquals(1, conjunto.tamanho());
+        return conjunto.imprimir();
+    }
+
+    /**
+     * Remoção de elemento
+     */
+    String remover() {
+        conjunto.inserir(1);
+        conjunto.inserir(2);
+        conjunto.inserir(3);
+        conjunto.inserir(4);
+        conjunto.inserir(5);
+        conjunto.remover(3);
+        assertEquals(4, conjunto.tamanho());
+        return conjunto.imprimir();
     }
     
     /**
-     * Teste de inserção em Conjunto já com elementos.
+     * Remoção de elemento
      */
-    @Test
-    @DisplayName("Inserção em Conjunto já com elementos com colisão.")
-    void testInserirConjuntoComElementosComColisao() {
-        this.conjuntoColisao.inserir(1);
-        this.conjuntoColisao.inserir(2);
-        assertEquals(2, this.conjuntoColisao.tamanho());
-        assertEquals("""
-            1: 1
-            2: 2""", this.conjuntoColisao.toString());
+    String removerNaoExistente() {
+        conjunto.inserir(1);
+        conjunto.inserir(2);
+        conjunto.inserir(3);
+        conjunto.inserir(4);
+        conjunto.inserir(5);
+        conjunto.remover(9);
+        assertEquals(4, conjunto.tamanho());
+        return conjunto.imprimir();
     }
 
     /**
-     * Teste de inserção em Conjunto vazia
+     * Tamanho (quantidade de elementos) da Conjunto
      */
-    @Test
-    @DisplayName("Inserção em Conjunto vazia")
-    void testInserirConjuntoVazio() {
-        this.conjunto.inserir(1);
-        assertEquals(1, this.conjunto.tamanho());
-        assertEquals("1", this.conjunto.toString());
-    }
-
-    /**
-     * Teste de remover elemento.
-     */
-    @Test
-    @DisplayName("Remover elemento")
-    void testRemover() {
-        this.conjunto.inserir(1);
-        this.conjunto.inserir(2);
-        this.conjunto.inserir(3);
-        this.conjunto.remover(2);
-        assertEquals(2, this.conjunto.tamanho());
-    }
-    
-    /**
-     * Teste de tamanho (quantidade de elementos) da Conjunto
-     */
-    @Test
-    @DisplayName("Tamanho (quantidade de elementos) da Conjunto")
-    void testTamanho() {
-        this.conjunto.inserir(1);
-        this.conjunto.inserir(2);
-        this.conjunto.inserir(3);
-        assertEquals(3, this.conjunto.tamanho());
-    }
-
-    /**
-     * Teste de impressão da Conjunto.
-     */
-    @Test
-    @DisplayName("Impressão da Conjunto")
-    void testToString() {
-        this.conjunto.inserir(11);
-        this.conjunto.inserir(22);
-        this.conjunto.inserir(33);
-        assertEquals("33 22 11", this.conjunto.toString());
+    void tamanho() {
+        conjunto.inserir(1);
+        conjunto.inserir(2);
+        conjunto.inserir(3);
+        assertEquals(3, conjunto.tamanho());
     }
 }

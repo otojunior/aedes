@@ -37,6 +37,20 @@ public class Fila {
     
 
     /**
+     * Imprime os elementos da fila na tela.
+     * @return String representando a fila.
+     */
+    public String imprimir() {
+        StringJoiner strjoin = new StringJoiner(" ");
+        No atual = this.primeiro;
+        while (atual != null) {
+            strjoin.add(String.valueOf(atual.valor));
+            atual = atual.proximo;
+        }
+        return strjoin.toString();
+    }
+
+    /**
      * Insere um elemento no fim da fila.
      * @param valor Valor a ser inserido.
      */
@@ -53,28 +67,6 @@ public class Fila {
             this.ultimo = this.ultimo.proximo;
         }
         this.tamanho++;
-    }
-
-    /**
-     * Remove um elemento do início da fila.
-     */
-    public int puxar() {
-        if (this.primeiro != null) {
-            No atual = this.primeiro;
-            this.primeiro = primeiro.proximo;
-            this.tamanho--;
-            return atual.valor;
-        } else {
-            throw new NoSuchElementException("Fila Vazia");
-        }
-    }
-
-    /**
-     * Retorna o tamanho da fila.
-     * @return Tamanho da fila (número de elementos na fila).
-     */
-    public int tamanho() {
-        return this.tamanho;
     }
 
     /**
@@ -103,17 +95,24 @@ public class Fila {
     }
 
     /**
-     * Imprime os elementos da fila na tela.
-     * @return String representando a fila.
+     * Remove um elemento do início da fila.
      */
-    @Override
-    public String toString() {
-        StringJoiner joiner = new StringJoiner(" ");
-        No atual = this.primeiro;
-        while (atual != null) {
-            joiner.add("" + atual.valor);
-            atual = atual.proximo;
+    public int puxar() {
+        if (this.primeiro != null) {
+            No atual = this.primeiro;
+            this.primeiro = primeiro.proximo;
+            this.tamanho--;
+            return atual.valor;
+        } else {
+            throw new NoSuchElementException("Fila Vazia");
         }
-        return joiner.toString();
+    }
+
+    /**
+     * Retorna o tamanho da fila.
+     * @return Tamanho da fila (número de elementos na fila).
+     */
+    public int tamanho() {
+        return this.tamanho;
     }
 }

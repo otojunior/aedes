@@ -3,6 +3,7 @@
  */
 package com.github.otojunior.aedes.hash;
 
+import static java.lang.Math.abs;
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
@@ -33,9 +34,17 @@ public class ConjuntoHash {
             this.chave = chave;
         }
     }
-
+    
     private No[] primeiro;
     private int tamanho;
+
+    /**
+     * Construtor do ConjuntoHash com capacidade padrão.
+     * A capacidade padrão é um valor grande para minimizar colisões.
+     */
+    public ConjuntoHash() {
+        this(Integer.MAX_VALUE >> 32);
+    }
 
     /**
      * Construtor do ConjuntoHash.
@@ -47,41 +56,6 @@ public class ConjuntoHash {
     }
 
     /**
-     * Construtor do ConjuntoHash com capacidade padrão.
-     * A capacidade padrão é um valor grande para minimizar colisões.
-     */
-    public ConjuntoHash() {
-        this(Integer.MAX_VALUE >> 32);
-    }
-
-    /**
-     * Função hash simples.
-     * @param chave Chave a ser transformada em índice.
-     * @return Índice na tabela hash.
-     */
-    private int hash(int chave) {
-        return Math.abs(chave) % primeiro.length;
-    }
-
-    /**
-     * Insere um elemento, se não existir.
-     * @param chave Chave a ser inserida.
-     */
-    public void inserir(int chave) {
-        int indice = this.hash(chave);
-        No atual = this.primeiro[indice];
-        while (atual != null && atual.chave != chave) {
-            atual = atual.proximo;
-        }
-        if (atual == null) {
-            No novo = new No(chave);
-            novo.proximo = this.primeiro[indice];
-            this.primeiro[indice] = novo;
-            this.tamanho++;
-        }
-    }
-
-    /**
      * Verifica se o elemento existe.
      * @param chave Chave a ser verificada.
      * @return <code>true</code> se o elemento existir, <code>false</code> caso contrário.
@@ -89,10 +63,25 @@ public class ConjuntoHash {
     public boolean contem(int chave) {
         int indice = this.hash(chave);
         No atual = this.primeiro[indice];
-        while (atual != null && atual.chave != chave) {
+        while (atual != null && atual.chave != chave)
             atual = atual.proximo;
-        }
         return (atual != null);
+    }
+
+    /**
+     * Insere um elemento, se não existir.
+     * @param chave Chave a ser inserida.
+     */
+    public void inserir(int chave) {
+        No novo = new No(chave);
+        int indice = this.hash(chave);
+        if (this.primeiro[indice] == null) {
+            this.primeiro[indice] = novo;
+        } else {
+            novo.proximo = this.primeiro[indice];
+            this.primeiro[indice] = novo;
+        }
+        this.tamanho++;
     }
 
     /**
@@ -103,12 +92,10 @@ public class ConjuntoHash {
         int indice = this.hash(chave);
         No atual = this.primeiro[indice];
         No anterior = null;
-
         while (atual != null && atual.chave != chave) {
             anterior = atual;
             atual = atual.proximo;
         }
-
         if (atual != null) {
             if (anterior == null) {
                 this.primeiro[indice] = atual.proximo;
@@ -117,7 +104,7 @@ public class ConjuntoHash {
             }
             this.tamanho--;
         } else {
-            throw new NoSuchElementException("Chave não encontrada: " + chave);
+            throw new NoSuchElementException("Elemento " + chave + " não encontrado." );
         }
     }
 
@@ -126,27 +113,38 @@ public class ConjuntoHash {
      * @return Número de elementos.
      */
     public int tamanho() {
-        return tamanho;
+        return this.tamanho;
     }
 
     /**
      * Retorna uma representação em string do conjunto.
      * @return Representação em string.
      */
-    public String toString() {
-        StringJoiner stri = new StringJoiner("\n");
+    public String imprimir() {
+        final String delim1 = "\n";
+        final String delim2 = " ";
+        StringJoiner strjoin1 = new StringJoiner(delim1);
         for (int i = 0; i < primeiro.length; i++) {
-            StringJoiner stre = new StringJoiner(" ");
-            No atual = this.primeiro[i];
-            while (atual != null) {
-                String str = String.valueOf(atual.chave);
-                stre.add(str);
-                atual = atual.proximo;
-            }
-            if (stre.length() > 0) {
-                stri.add(i + ": " + stre.toString());
+            if (primeiro[i] != null) {
+                StringJoiner strjoin2 = new StringJoiner(delim2);
+                No atual = primeiro[i];
+                while (atual != null) {
+                    strjoin2.add(String.valueOf(atual.chave));
+                    atual = atual.proximo;
+                }
+                strjoin1.add(i + ": " + strjoin2.toString());
             }
         }
-        return stri.toString();
+        return strjoin1.toString();
+    }
+
+    /**
+     * Função hash simples.
+     * @param chave Chave a ser transformada em índice.
+     * @return Índice na tabela hash.
+     */
+    private int hash(int chave) {
+        int chaveabs = abs(chave);
+        return chaveabs % primeiro.length;
     }
 }

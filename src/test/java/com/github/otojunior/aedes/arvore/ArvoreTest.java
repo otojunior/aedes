@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
         this.arvore.inserir(2);
         this.arvore.inserir(9);
         assertEquals(6, this.arvore.tamanho());
-        assertEquals("2 3 5 6 7 9", this.arvore.toString());
+        assertEquals("2 3 5 6 7 9", this.arvore.imprimir());
     }
 
     /**
@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
     void testInserirArvoreVazia() {
         this.arvore.inserir(1);
         assertEquals(1, this.arvore.tamanho());
-        assertEquals("1", this.arvore.toString());
+        assertEquals("1", this.arvore.imprimir());
     }
 
     /**
@@ -57,7 +57,7 @@ import org.junit.jupiter.api.Test;
         this.arvore.inserir(9);
         this.arvore.remover(6);
         assertEquals(5, this.arvore.tamanho());
-        assertEquals("2 3 5 7 9", this.arvore.toString());
+        assertEquals("2 3 5 7 9", this.arvore.imprimir());
     }
 
     /**
@@ -75,7 +75,7 @@ import org.junit.jupiter.api.Test;
         this.arvore.remover(6);
         this.arvore.remover(3);
         assertEquals(4, this.arvore.tamanho());
-        assertEquals("2 5 7 9", this.arvore.toString());
+        assertEquals("2 5 7 9", this.arvore.imprimir());
     }
 
     /**
@@ -94,7 +94,7 @@ import org.junit.jupiter.api.Test;
         this.arvore.remover(9);
         this.arvore.remover(6);
         assertEquals(3, this.arvore.tamanho());
-        assertEquals("3 5 7", this.arvore.toString());
+        assertEquals("3 5 7", this.arvore.imprimir());
     }
 
     /**
@@ -112,7 +112,7 @@ import org.junit.jupiter.api.Test;
         this.arvore.remover(7);
         this.arvore.remover(3);
         assertEquals(4, this.arvore.tamanho());
-        assertEquals("2 5 6 9", this.arvore.toString());
+        assertEquals("2 5 6 9", this.arvore.imprimir());
     }
 
     /**
@@ -129,7 +129,7 @@ import org.junit.jupiter.api.Test;
         this.arvore.inserir(9);
         this.arvore.remover(5);
         assertEquals(5, this.arvore.tamanho());
-        assertEquals("2 3 6 7 9", this.arvore.toString());
+        assertEquals("2 3 6 7 9", this.arvore.imprimir());
     }
 
     /**
@@ -159,6 +159,6 @@ import org.junit.jupiter.api.Test;
         this.arvore.inserir(6);
         this.arvore.inserir(2);
         this.arvore.inserir(9);
-        assertEquals("2 3 5 6 7 9", this.arvore.toString());
+        assertEquals("2 3 5 6 7 9", this.arvore.imprimir());
     }
 }

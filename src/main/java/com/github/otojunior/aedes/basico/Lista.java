@@ -37,6 +37,20 @@ public class Lista {
     private No ultimo;
 
     /**
+     * Imprime os elementos da lista na tela.
+     * @return String representando a lista.
+     */
+    public String imprimir() {
+        StringJoiner strjoin = new StringJoiner(" ");
+        No atual = this.primeiro;
+        while (atual != null) {
+            strjoin.add(String.valueOf(atual.valor));
+            atual = atual.proximo;
+        }
+        return strjoin.toString();
+    }
+
+    /**
      * Insere um elemento no fim da lista.
      * @param valor Valor a ser inserido.
      */
@@ -89,6 +103,31 @@ public class Lista {
     }
 
     /**
+     * Obtém o No referente à posição específica na lista.
+     * @param posicao Posição requerida.
+     * @return No requerido
+     */
+    public int obterindice(int valor) {
+        No atual = this.primeiro;
+        int i = 0;
+        for (; i < this.tamanho && atual.valor != valor; i++) {
+            atual = atual.proximo;
+        }
+        /*
+         * No caso da pesquisa por valor dentro da lista, o loop vai parar em
+         * duas condições: ou o elemento foi encontrado ou o iterador chegou
+         * ao fim da lista. Estes casos são testados abaixo.
+         */
+        if (i < this.tamanho) {
+            return i;
+        } else {
+            throw new NoSuchElementException(
+                "Elemento " + valor + 
+                " pesquisado não encontrado na lista.");
+        }
+    }
+    
+    /**
      * Remove elemento de uma posição específica da lista.
      * @param posicao Posição do elemento a ser removido.
      */
@@ -119,22 +158,6 @@ public class Lista {
     }
 
     /**
-     * Remove um elemento do início da lista. Anda com o ponteiro de [Primeiro] e se
-     * existir [Próximo-Nó], aterra o ponteiro de [Nó-Anterior].
-     */
-    public void removerinicio() {
-        if (this.primeiro != null) {
-            this.primeiro = this.primeiro.proximo;  // anda com o ponteiro para frente
-            if (this.primeiro != null) {
-                this.primeiro.anterior = null;
-            }
-            this.tamanho--;
-        } else {
-            throw new NoSuchElementException("Lista Vazia");
-        }
-    }
-    
-    /**
      * Remove um elemento do fim da lista. Anda com o ponteiro de [Ultimo] para trás e se
      * existir [Nó-Anterior], aterra o ponteiro de [Próximo-Nó].
      */
@@ -151,51 +174,27 @@ public class Lista {
     }
 
     /**
+     * Remove um elemento do início da lista. Anda com o ponteiro de [Primeiro] e se
+     * existir [Próximo-Nó], aterra o ponteiro de [Nó-Anterior].
+     */
+    public void removerinicio() {
+        if (this.primeiro != null) {
+            this.primeiro = this.primeiro.proximo;  // anda com o ponteiro para frente
+            if (this.primeiro != null) {
+                this.primeiro.anterior = null;
+            }
+            this.tamanho--;
+        } else {
+            throw new NoSuchElementException("Lista Vazia");
+        }
+    }
+
+    /**
      * Retorna o tamanho da lista.
      * @return Tamanho da lista (número de elementos na lista).
      */
     public int tamanho() {
         return this.tamanho;
-    }
-
-    /**
-     * Obtém o No referente à posição específica na lista.
-     * @param posicao Posição requerida.
-     * @return No requerido
-     */
-    public int obterindice(int valor) {
-        No atual = this.primeiro;
-        int i = 0;
-        for (; i < this.tamanho && atual.valor != valor; i++) {
-            atual = atual.proximo;
-        }
-        /*
-         * No caso da pesquisa por valor dentro da lista, o loop vai parar em
-         * duas condições: ou o elemento foi encontrado ou o iterador chegou
-         * ao fim da lista. Estes casos são testados abaixo.
-         */
-        if (i < this.tamanho) {
-            return i;
-        } else {
-            throw new NoSuchElementException(
-                "Elemento " + valor + 
-                " pesquisado não encontrado na lista.");
-        }
-    }
-
-    /**
-     * Imprime os elementos da lista na tela.
-     * @return String representando a lista.
-     */
-    @Override
-    public String toString() {
-        StringJoiner joiner = new StringJoiner(" ");
-        No atual = this.primeiro;
-        while (atual != null) {
-            joiner.add("" + atual.valor);
-            atual = atual.proximo;
-        }
-        return joiner.toString();
     }
     
     /**

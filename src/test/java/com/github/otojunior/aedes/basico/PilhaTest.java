@@ -35,7 +35,7 @@ class PilhaTest {
         this.pilha.inserir(1);
         this.pilha.inserir(2);
         assertEquals(2, this.pilha.tamanho());
-        assertEquals("2 1", this.pilha.toString());
+        assertEquals("2 1", this.pilha.imprimir());
     }
 
     /**
@@ -46,7 +46,7 @@ class PilhaTest {
     void testInserirPilhaVazia() {
         this.pilha.inserir(1);
         assertEquals(1, this.pilha.tamanho());
-        assertEquals("1", this.pilha.toString());
+        assertEquals("1", this.pilha.imprimir());
     }
 
     /**
@@ -113,6 +113,6 @@ class PilhaTest {
         this.pilha.inserir(11);
         this.pilha.inserir(22);
         this.pilha.inserir(33);
-        assertEquals("33 22 11", this.pilha.toString());
+        assertEquals("33 22 11", this.pilha.imprimir());
     }
 }

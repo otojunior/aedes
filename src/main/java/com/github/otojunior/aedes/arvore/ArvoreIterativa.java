@@ -27,6 +27,11 @@ public class ArvoreIterativa implements Arvore {
         private No esquerda;
         private No direita;
 
+        /**
+         * Construtor do No. Por padrão, em Java, as propriedades
+         * de classe são inicializadas com valor nulo. 
+         * @param valor Valor do elemento.
+         */
         private No(int valor) {
             this.valor = valor;
         }
@@ -170,22 +175,22 @@ public class ArvoreIterativa implements Arvore {
      * @return String representando a árvore em em-ordem.
      */
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        toString(raiz, sb);
-        return sb.toString().trim();
+    public String imprimir() {
+        StringBuilder strbuild = new StringBuilder();
+        imprimir(this.raiz, strbuild);
+        return strbuild.toString().trim();
     }
 
     /**
      * Percorre a árvore em em-ordem recursivamente.
      * @param no Nó atual.
-     * @param str StringBuilder para construir a representação em string.
+     * @param strbuild StringBuilder para construir a representação em string.
      */
-    private void toString(No no, StringBuilder str) {
+    private void imprimir(No no, StringBuilder strbuild) {
         if (no != null) {
-            toString(no.esquerda, str);
-            str.append(no.valor).append(" ");
-            toString(no.direita, str);
+            imprimir(no.esquerda, strbuild);
+            strbuild.append(no.valor).append(" ");
+            imprimir(no.direita, strbuild);
         }
     }
 }
