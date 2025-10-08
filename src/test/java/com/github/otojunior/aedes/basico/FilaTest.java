@@ -83,7 +83,7 @@ class FilaTest {
      */
     @Test
     @DisplayName("Puxar elemento")
-    void testRemoverInicio() {
+    void testPuxar() {
         this.fila.inserir(1);
         this.fila.inserir(2);
         this.fila.inserir(3);

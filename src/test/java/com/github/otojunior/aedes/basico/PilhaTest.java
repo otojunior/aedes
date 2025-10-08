@@ -83,7 +83,7 @@ class PilhaTest {
      */
     @Test
     @DisplayName("Puxar elemento")
-    void testRemoverInicio() {
+    void testPuxar() {
         this.pilha.inserir(1);
         this.pilha.inserir(2);
         this.pilha.inserir(3);
