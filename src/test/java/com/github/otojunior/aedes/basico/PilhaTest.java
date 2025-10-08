@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 28/09/2025
  */
+@DisplayName("Pilha")
 class PilhaTest {
     private Pilha pilha;
 

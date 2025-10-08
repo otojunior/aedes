@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 28/09/2025
  */
+@DisplayName("Fila")
 class FilaTest {
     private Fila fila;
 
