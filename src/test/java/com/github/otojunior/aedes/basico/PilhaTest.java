@@ -8,15 +8,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * Teste de unidade da Pilha
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 28/09/2025
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Pilha")
-class PilhaTest {
+class PilhaTest implements PilhaFilaTest {
     private Pilha pilha;
 
     /**
@@ -28,11 +32,26 @@ class PilhaTest {
     }
 
     /**
-     * Teste de inserção em Pilha já com elementos.
+     * Teste Pilha: Inserção do 1o. elemento.
      */
     @Test
-    @DisplayName("Inserção em Pilha já com elementos.")
-    void testInserirPilhaComElementos() {
+    @Order(1)
+    @DisplayName("Pilha: Inserção do 1o. elemento")
+    @Override
+    public void testInserir1oElemento() {
+        this.pilha.inserir(1);
+        assertEquals(1, this.pilha.tamanho());
+        assertEquals("1", this.pilha.imprimir());
+    }
+
+    /**
+     * Teste Pilha: Inserção do 2o. elemento.
+     */
+    @Test
+    @Order(2)
+    @DisplayName("Pilha: Inserção do 2o. elemento")
+    @Override
+    public void testInserir2oElemento() {
         this.pilha.inserir(1);
         this.pilha.inserir(2);
         assertEquals(2, this.pilha.tamanho());
@@ -40,36 +59,57 @@ class PilhaTest {
     }
 
     /**
-     * Teste de inserção em Pilha vazia
+     * Teste Pilha: Puxar penúltimo elemento.
      */
     @Test
-    @DisplayName("Inserção em Pilha vazia")
-    void testInserirPilhaVazia() {
+    @Order(3)
+    @DisplayName("Pilha: Puxar penúltimo elemento")
+    @Override
+    public void testPuxarPenultimoElemento() {
         this.pilha.inserir(1);
+        this.pilha.inserir(2);
+        int valor = this.pilha.puxar();
         assertEquals(1, this.pilha.tamanho());
-        assertEquals("1", this.pilha.imprimir());
+        assertEquals(2, valor);
     }
-
+    
     /**
-     * Teste de obtenção de posição de um valor de emento que existe
+     * Teste Pilha: Puxar último elemento.
      */
     @Test
-    @DisplayName("Obtenção de posição de um valor de emento que existe")
-    void testObterPosicaoElementoQueExiste() {
+    @Order(4)
+    @DisplayName("Pilha: Puxar último elemento")
+    @Override
+    public void testPuxarUltimoElemento() {
+        this.pilha.inserir(1);
+        int valor = this.pilha.puxar();
+        assertEquals(0, this.pilha.tamanho());
+        assertEquals(1, valor);
+    }
+    
+    /**
+     * Teste Pilha: Obtenção de posição de elemento existente.
+     */
+    @Test
+    @Order(5)
+    @DisplayName("Pilha: Obtenção de posição de elemento existente")
+    @Override
+    public void testObterPosicaoElementoExistente() {
         this.pilha.inserir(10);
         this.pilha.inserir(20);
         this.pilha.inserir(30);
-        this.pilha.inserir(40);
-        int index = this.pilha.obterindice(30);
+        int index = this.pilha.obterindice(20);
         assertEquals(1, index);
     }
 
     /**
-     * Teste de obtenção de posição de um valor de emento que não existe
+     * Teste Pilha: Obtenção de posição de elemento existente.
      */
     @Test
-    @DisplayName("Obtenção de posição de um valor de emento que não existe")
-    void testObterPosicaoElementoQueNaoExiste() {
+    @Order(6)
+    @DisplayName("Pilha: Obtenção de posição de elemento ausente")
+    @Override
+    public void testObterPosicaoElementoAusente() {
         Exception ex = assertThrows(NoSuchElementException.class, () -> {
             this.pilha.inserir(10);
             this.pilha.inserir(20);
@@ -80,25 +120,13 @@ class PilhaTest {
     }
 
     /**
-     * Teste de puxar elemento.
+     * Teste Pilha: Quantidade de elementos
      */
     @Test
-    @DisplayName("Puxar elemento")
-    void testPuxar() {
-        this.pilha.inserir(1);
-        this.pilha.inserir(2);
-        this.pilha.inserir(3);
-        int valor = this.pilha.puxar();
-        assertEquals(2, this.pilha.tamanho());
-        assertEquals(3, valor);
-    }
-
-    /**
-     * Teste de tamanho (quantidade de elementos) da Pilha
-     */
-    @Test
-    @DisplayName("Tamanho (quantidade de elementos) da Pilha")
-    void testTamanho() {
+    @Order(7)
+    @DisplayName("Pilha: Quantidade de elementos")
+    @Override
+    public void testQuantidadeElementos() {
         this.pilha.inserir(1);
         this.pilha.inserir(2);
         this.pilha.inserir(3);
@@ -109,8 +137,10 @@ class PilhaTest {
      * Teste de impressão da Pilha.
      */
     @Test
-    @DisplayName("Impressão da Pilha")
-    void testToString() {
+    @Order(8)
+    @DisplayName("Pilha: Impressão")
+    @Override
+    public void testImprimir() {
         this.pilha.inserir(11);
         this.pilha.inserir(22);
         this.pilha.inserir(33);
