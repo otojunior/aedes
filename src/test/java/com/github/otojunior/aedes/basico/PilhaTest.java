@@ -50,8 +50,7 @@ class PilhaTest {
     @Order(2)
     @DisplayName("Pilha: Inserção do 2o. elemento")
     void testInserir2oElemento() {
-        this.pilha.inserir(1);
-        this.pilha.inserir(2);
+        for (int i = 1; i <= 2; i++) this.pilha.inserir(i);
         assertEquals(2, this.pilha.tamanho());
         assertEquals("2 1", this.pilha.imprimir());
     }
@@ -63,9 +62,7 @@ class PilhaTest {
     @Order(3)
     @DisplayName("Pilha: Inserção do 3o. elemento")
     void testInserir3oElemento() {
-        this.pilha.inserir(1);
-        this.pilha.inserir(2);
-        this.pilha.inserir(3);
+        for (int i = 1; i <= 3; i++) this.pilha.inserir(i);
         assertEquals(3, this.pilha.tamanho());
         assertEquals("3 2 1", this.pilha.imprimir());
     }
@@ -77,9 +74,9 @@ class PilhaTest {
     @Order(4)
     @DisplayName("Pilha: Puxar elemento em pilha vazia")
     void testPuxarElementoPilhaVazia() {
-        Exception ex = assertThrows(NoSuchElementException.class, () -> {
-            this.pilha.puxar();
-        });
+        Exception ex = assertThrows(
+            NoSuchElementException.class,
+            () -> this.pilha.puxar());
         assertEquals("Pilha Vazia", ex.getMessage());
     }
     
@@ -90,9 +87,7 @@ class PilhaTest {
     @Order(5)
     @DisplayName("Pilha: Puxar antepenúltimo elemento")
     void testPuxarAntepenultimoElemento() {
-        this.pilha.inserir(1);
-        this.pilha.inserir(2);
-        this.pilha.inserir(3);
+        for (int i = 1; i <= 3; i++) this.pilha.inserir(i);
         int valor = this.pilha.puxar();
         assertEquals(2, this.pilha.tamanho());
         assertEquals(3, valor);
@@ -105,8 +100,7 @@ class PilhaTest {
     @Order(6)
     @DisplayName("Pilha: Puxar penúltimo elemento")
     void testPuxarPenultimoElemento() {
-        this.pilha.inserir(1);
-        this.pilha.inserir(2);
+        for (int i = 1; i <= 2; i++) this.pilha.inserir(i);
         int valor = this.pilha.puxar();
         assertEquals(1, this.pilha.tamanho());
         assertEquals(2, valor);
@@ -132,10 +126,8 @@ class PilhaTest {
     @Order(8)
     @DisplayName("Pilha: Obtenção de posição de elemento existente")
     void testObterPosicaoElementoExistente() {
-        this.pilha.inserir(10);
-        this.pilha.inserir(20);
-        this.pilha.inserir(30);
-        int index = this.pilha.obterindice(20);
+        for (int i = 1; i <= 3; i++) this.pilha.inserir(i);
+        int index = this.pilha.obterindice(2);
         assertEquals(1, index);
     }
 
@@ -147,12 +139,10 @@ class PilhaTest {
     @DisplayName("Pilha: Obtenção de posição de elemento ausente")
     void testObterPosicaoElementoAusente() {
         Exception ex = assertThrows(NoSuchElementException.class, () -> {
-            this.pilha.inserir(10);
-            this.pilha.inserir(20);
-            this.pilha.inserir(30);
-            this.pilha.obterindice(40);
+            for (int i = 1; i <= 7; i++) this.pilha.inserir(i);
+            this.pilha.obterindice(9);
         });
-        assertEquals("Elemento 40 pesquisado não encontrado na pilha.", ex.getMessage());
+        assertEquals("Elemento 9 pesquisado não encontrado na pilha.", ex.getMessage());
     }
 
     /**
@@ -162,10 +152,8 @@ class PilhaTest {
     @Order(10)
     @DisplayName("Pilha: Quantidade de elementos")
     void testQuantidadeElementos() {
-        this.pilha.inserir(1);
-        this.pilha.inserir(2);
-        this.pilha.inserir(3);
-        assertEquals(3, this.pilha.tamanho());
+        for (int i = 1; i <= 8; i++) this.pilha.inserir(i);
+        assertEquals(8, this.pilha.tamanho());
     }
 
     /**
@@ -175,9 +163,7 @@ class PilhaTest {
     @Order(11)
     @DisplayName("Pilha: Impressão")
     void testImprimir() {
-        this.pilha.inserir(11);
-        this.pilha.inserir(22);
-        this.pilha.inserir(33);
-        assertEquals("33 22 11", this.pilha.imprimir());
+        for (int i = 1; i <= 5; i++) this.pilha.inserir(i);
+        assertEquals("5 4 3 2 1", this.pilha.imprimir());
     }
 }

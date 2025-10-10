@@ -50,8 +50,7 @@ class FilaTest {
     @Order(2)
     @DisplayName("Fila: Inserção do 2o. elemento")
     void testInserir2oElemento() {
-        this.fila.inserir(1);
-        this.fila.inserir(2);
+        for (int i = 1; i <= 2; i++) this.fila.inserir(i);
         assertEquals(2, this.fila.tamanho());
         assertEquals("1 2", this.fila.imprimir());
     }
@@ -63,9 +62,7 @@ class FilaTest {
     @Order(3)
     @DisplayName("Fila: Inserção do 3o. elemento")
     void testInserir3oElemento() {
-        this.fila.inserir(1);
-        this.fila.inserir(2);
-        this.fila.inserir(3);
+        for (int i = 1; i <= 3; i++) this.fila.inserir(i);
         assertEquals(3, this.fila.tamanho());
         assertEquals("1 2 3", this.fila.imprimir());
     }
@@ -77,9 +74,8 @@ class FilaTest {
     @Order(4)
     @DisplayName("Pilha: Puxar elemento em fila vazia")
     void testPuxarElementoFilaVazia() {
-        Exception ex = assertThrows(NoSuchElementException.class, () -> {
-            this.fila.puxar();
-        });
+        Exception ex = assertThrows(
+            NoSuchElementException.class, () -> this.fila.puxar());
         assertEquals("Fila Vazia", ex.getMessage());
     }
 
@@ -90,9 +86,7 @@ class FilaTest {
     @Order(5)
     @DisplayName("Fila: Puxar antepenúltimo elemento")
     void testPuxarAntepenultimoElemento() {
-        this.fila.inserir(1);
-        this.fila.inserir(2);
-        this.fila.inserir(3);
+        for (int i = 1; i <= 3; i++) this.fila.inserir(i);
         int valor = this.fila.puxar();
         assertEquals(2, this.fila.tamanho());
         assertEquals(1, valor);
@@ -105,8 +99,7 @@ class FilaTest {
     @Order(6)
     @DisplayName("Fila: Puxar penúltimo elemento")
     void testPuxarPenultimoElemento() {
-        this.fila.inserir(1);
-        this.fila.inserir(2);
+        for (int i = 1; i <= 2; i++) this.fila.inserir(i);
         int valor = this.fila.puxar();
         assertEquals(1, this.fila.tamanho());
         assertEquals(1, valor);
@@ -132,10 +125,8 @@ class FilaTest {
     @Order(8)
     @DisplayName("Fila: Obtenção de posição de elemento existente")
     void testObterPosicaoElementoExistente() {
-        this.fila.inserir(10);
-        this.fila.inserir(20);
-        this.fila.inserir(30);
-        int index = this.fila.obterindice(20);
+        for (int i = 1; i <= 3; i++) this.fila.inserir(i);
+        int index = this.fila.obterindice(2);
         assertEquals(1, index);
     }
 
@@ -147,12 +138,10 @@ class FilaTest {
     @DisplayName("Fila: Obtenção de posição de elemento ausente")
     void testObterPosicaoElementoAusente() {
         Exception ex = assertThrows(NoSuchElementException.class, () -> {
-            this.fila.inserir(10);
-            this.fila.inserir(20);
-            this.fila.inserir(30);
-            this.fila.obterindice(40);
+            for (int i = 1; i <= 7; i++) this.fila.inserir(i);
+            this.fila.obterindice(9);
         });
-        assertEquals("Elemento 40 pesquisado não encontrado na fila.", ex.getMessage());
+        assertEquals("Elemento 9 pesquisado não encontrado na fila.", ex.getMessage());
     }
 
     /**
@@ -162,10 +151,8 @@ class FilaTest {
     @Order(10)
     @DisplayName("Fila: Quantidade de elementos")
     void testQuantidadeElementos() {
-        this.fila.inserir(1);
-        this.fila.inserir(2);
-        this.fila.inserir(3);
-        assertEquals(3, this.fila.tamanho());
+        for (int i = 1; i <= 8; i++) this.fila.inserir(i);
+        assertEquals(8, this.fila.tamanho());
     }
 
     /**
@@ -175,9 +162,7 @@ class FilaTest {
     @Order(11)
     @DisplayName("Fila: Impressão")
     void testImprimir() {
-        this.fila.inserir(11);
-        this.fila.inserir(22);
-        this.fila.inserir(33);
-        assertEquals("11 22 33", this.fila.imprimir());
+        for (int i = 1; i <= 5; i++) this.fila.inserir(i);
+        assertEquals("1 2 3 4 5", this.fila.imprimir());
     }
 }

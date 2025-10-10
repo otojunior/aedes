@@ -50,8 +50,7 @@ class ListaTest {
     @Order(2)
     @DisplayName("Lista: Inserção do 2o. elemento")
     void testInserir2oElemento() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
+        for (int i = 1; i <= 2; i++) this.lista.inserir(i); 
         assertEquals(2, this.lista.tamanho());
         assertEquals("1 2", this.lista.imprimir());
     }
@@ -63,9 +62,7 @@ class ListaTest {
     @Order(3)
     @DisplayName("Lista: Inserção do 3o. elemento")
     void testInserir3oElemento() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
-        this.lista.inserir(3);
+        for (int i = 1; i <= 3; i++) this.lista.inserir(i);
         assertEquals(3, this.lista.tamanho());
         assertEquals("1 2 3", this.lista.imprimir());
     }
@@ -102,8 +99,7 @@ class ListaTest {
     @Order(6)
     @DisplayName("Lista: Inserção em posição 0 com 2 elementos")
     void testInserirPosicao0Com2Elementos() {
-        this.lista.inserir(2);
-        this.lista.inserir(3);
+        for (int i = 2; i <= 3; i++) this.lista.inserir(i);
         this.lista.inserir(0, 1);
         assertEquals(3, this.lista.tamanho());
         assertEquals("1 2 3", this.lista.imprimir());
@@ -120,7 +116,9 @@ class ListaTest {
             this.lista.inserir(1, 1);
             assertEquals("1", this.lista.imprimir());
         });
-        assertEquals("Lista vazia.", ex.getMessage());
+        assertEquals(
+            "Posi\u00E7\u00E3o 1 inv\u00E1lida para lista de tamanho 0",
+            ex.getMessage());
     }
 
     /**
@@ -136,8 +134,7 @@ class ListaTest {
             assertEquals("1", this.lista.imprimir());
         });
         assertEquals(
-            "Erro ao acessar a posição 1. "
-            + "Só é permitido posições entre 0 e 0.",
+            "Posi\u00E7\u00E3o 1 inv\u00E1lida para lista de tamanho 1",
             ex.getMessage());
     }
     
@@ -148,8 +145,7 @@ class ListaTest {
     @Order(9)
     @DisplayName("Lista: Inserção em posição 1 com 2 elementos")
     void testInserirPosicao1Com2Elementos() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
+        for (int i = 1; i <= 2; i++) this.lista.inserir(i);
         this.lista.inserir(1, 3);
         assertEquals(3, this.lista.tamanho());
         assertEquals("1 3 2", this.lista.imprimir());
@@ -162,10 +158,8 @@ class ListaTest {
     @Order(10)
     @DisplayName("Lista: Obtenção de posição de elemento existente")
     void testObterPosicaoElementoExistente() {
-        this.lista.inserir(10);
-        this.lista.inserir(20);
-        this.lista.inserir(30);
-        int index = this.lista.obterindice(20);
+        for (int i = 1; i <= 3; i++) this.lista.inserir(i);
+        int index = this.lista.obterindice(2);
         assertEquals(1, index);
     }
 
@@ -177,12 +171,12 @@ class ListaTest {
     @DisplayName("Lista: Obtenção de posição de elemento ausente")
     void testObterPosicaoElementoAusente() {
         Exception ex = assertThrows(NoSuchElementException.class, () -> {
-            this.lista.inserir(10);
-            this.lista.inserir(20);
-            this.lista.inserir(30);
+            for (int i = 1; i <= 20; i++) this.lista.inserir(i);
             this.lista.obterindice(40);
         });
-        assertEquals("Elemento 40 pesquisado não encontrado na lista.", ex.getMessage());
+        assertEquals(
+            "Elemento 40 pesquisado n\u00E3o encontrado na lista",
+            ex.getMessage());
     }
 
     /**
@@ -208,7 +202,7 @@ class ListaTest {
         this.lista.inserir(1);
         this.lista.removerinicio();
         assertEquals(0, this.lista.tamanho());        
-        assertEquals("", this.lista.imprimir());
+        assertEquals("[Lista Vazia]", this.lista.imprimir());
     }
     
     /**
@@ -218,9 +212,7 @@ class ListaTest {
     @Order(14)
     @DisplayName("Lista: Remoção de elemento no início")
     void testRemoverInicio() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
-        this.lista.inserir(3);
+        for (int i = 1; i <= 3; i++) this.lista.inserir(i);
         this.lista.removerinicio();
         assertEquals(2, this.lista.tamanho());        
         assertEquals("2 3", this.lista.imprimir());
@@ -249,7 +241,7 @@ class ListaTest {
         this.lista.inserir(1);
         this.lista.removerfim();
         assertEquals(0, this.lista.tamanho());        
-        assertEquals("", this.lista.imprimir());
+        assertEquals("[Lista Vazia]", this.lista.imprimir());
     }
 
     /**
@@ -259,9 +251,7 @@ class ListaTest {
     @Order(17)
     @DisplayName("Lista: Remoção de elemento no fim")
     void testRemoverFim() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
-        this.lista.inserir(3);
+        for (int i = 1; i <= 3; i++) this.lista.inserir(i);
         this.lista.removerfim();
         assertEquals(2, this.lista.tamanho());
         assertEquals("1 2", this.lista.imprimir());
@@ -301,13 +291,11 @@ class ListaTest {
     @DisplayName("Lista: Remoção em posição negativa")
     void testRemoverPosicaoNegativa() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
-            this.lista.inserir(1);
-            this.lista.inserir(2);
-            this.lista.inserir(3);
+            for (int i = 1; i <= 3; i++) this.lista.inserir(i);
             this.lista.remover(-1);
         });
         assertEquals(
-            "Erro ao acessar a posição -1. Só é permitido posições entre 0 e 2.",
+            "Posi\u00E7\u00E3o -1 inv\u00E1lida para lista de tamanho 3",
             ex.getMessage());
     }
 
@@ -319,13 +307,11 @@ class ListaTest {
     @DisplayName("Lista: Remoção em posição fora do limite")
     void testRemoverPosicaoForaLimite() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
-            this.lista.inserir(1);
-            this.lista.inserir(2);
-            this.lista.inserir(3);
+            for (int i = 1; i <= 3; i++) this.lista.inserir(i);
             this.lista.remover(99);
         });
         assertEquals(
-            "Erro ao acessar a posição 99. Só é permitido posições entre 0 e 2.",
+            "Posi\u00E7\u00E3o 99 inv\u00E1lida para lista de tamanho 3",
             ex.getMessage());
     }
 
@@ -336,10 +322,10 @@ class ListaTest {
     @Order(22)
     @DisplayName("Lista: Remoção em posição 0 em lista vazia")
     void testRemoverPosicao0SemElementos() {
-        Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
-            this.lista.remover(0);
-        });
-        assertEquals("Lista vazia.", ex.getMessage());
+        Exception ex = assertThrows(
+            NoSuchElementException.class,
+            () -> this.lista.remover(0));
+        assertEquals("Lista Vazia", ex.getMessage());
     }
 
     /**
@@ -352,7 +338,7 @@ class ListaTest {
         this.lista.inserir(1);
         this.lista.remover(0);
         assertEquals(0, this.lista.tamanho());        
-        assertEquals("", this.lista.imprimir());
+        assertEquals("[Lista Vazia]", this.lista.imprimir());
     }
 
     /**
@@ -362,8 +348,7 @@ class ListaTest {
     @Order(24)
     @DisplayName("Lista: Remoção em posição 0 em lista com 2 elementos")
     void testRemoverPosicao0Com2Elementos() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
+        for (int i = 1; i <= 2; i++) this.lista.inserir(i);
         this.lista.remover(0);
         assertEquals(1, this.lista.tamanho());        
         assertEquals("2", this.lista.imprimir());
@@ -376,9 +361,7 @@ class ListaTest {
     @Order(25)
     @DisplayName("Lista: Remoção em posição 0 em lista com 3 elementos")
     void testRemoverPosicao0Com3Elementos() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
-        this.lista.inserir(3);
+        for (int i = 1; i <= 3; i++) this.lista.inserir(i);
         this.lista.remover(0);
         assertEquals(2, this.lista.tamanho());        
         assertEquals("2 3", this.lista.imprimir());
@@ -391,10 +374,10 @@ class ListaTest {
     @Order(26)
     @DisplayName("Lista: Remoção em posição 1 em lista vazia")
     void testRemoverPosicao1SemElementos() {
-        Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
-            this.lista.remover(1);
-        });
-        assertEquals("Lista vazia.", ex.getMessage());
+        Exception ex = assertThrows(
+            NoSuchElementException.class,
+            () -> this.lista.remover(1));
+        assertEquals("Lista Vazia", ex.getMessage());
     }
 
     /**
@@ -409,7 +392,7 @@ class ListaTest {
             this.lista.remover(1);
         });
         assertEquals(
-            "Erro ao acessar a posição 1. Só é permitido posições entre 0 e 0.",
+            "Posi\u00E7\u00E3o 1 inv\u00E1lida para lista de tamanho 1",
             ex.getMessage());
     }
 
@@ -420,8 +403,7 @@ class ListaTest {
     @Order(28)
     @DisplayName("Lista: Remoção em posição 1 em lista com 2 elementos")
     void testRemoverPosicao1Com2Elementos() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
+        for (int i = 1; i <= 2; i++) this.lista.inserir(i);
         this.lista.remover(1);
         assertEquals(1, this.lista.tamanho());        
         assertEquals("1", this.lista.imprimir());
@@ -434,9 +416,7 @@ class ListaTest {
     @Order(29)
     @DisplayName("Lista: Remoção em posição 1 em lista com 3 elementos")
     void testRemoverPosicao1Com3Elementos() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
-        this.lista.inserir(3);
+        for (int i = 1; i <= 3; i++) this.lista.inserir(i);
         this.lista.remover(1);
         assertEquals(2, this.lista.tamanho());        
         assertEquals("1 3", this.lista.imprimir());
@@ -452,7 +432,7 @@ class ListaTest {
         this.lista.inserir(1);
         this.lista.remover(this.lista.tamanho() - 1);
         assertEquals(0, this.lista.tamanho());        
-        assertEquals("", this.lista.imprimir());
+        assertEquals("[Lista Vazia]", this.lista.imprimir());
     }
 
     /**
@@ -462,8 +442,7 @@ class ListaTest {
     @Order(31)
     @DisplayName("Lista: Remoção em posição final em lista com 2 elementos")
     void testRemoverPosicaoFinalCom2Elementos() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
+        for (int i = 1; i <= 2; i++) this.lista.inserir(i);
         this.lista.remover(this.lista.tamanho() - 1);
         assertEquals(1, this.lista.tamanho());        
         assertEquals("1", this.lista.imprimir());
@@ -476,9 +455,7 @@ class ListaTest {
     @Order(32)
     @DisplayName("Lista: Remoção em posição final em lista com 3 elementos")
     void testRemoverPosicaoFinalCom3Elementos() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
-        this.lista.inserir(3);
+        for (int i = 1; i <= 3; i++) this.lista.inserir(i);
         this.lista.remover(this.lista.tamanho() - 1);
         assertEquals(2, this.lista.tamanho());        
         assertEquals("1 2", this.lista.imprimir());
@@ -491,9 +468,7 @@ class ListaTest {
     @Order(33)
     @DisplayName("Lista: Quantidade de elementos")
     void testQuantidadeElementos() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
-        this.lista.inserir(3);
+        for (int i = 1; i <= 3; i++) this.lista.inserir(i);
         assertEquals(3, this.lista.tamanho());
     }
 
@@ -504,9 +479,7 @@ class ListaTest {
     @Order(34)
     @DisplayName("Lista: Impressão")
     void testImprimir() {
-        this.lista.inserir(11);
-        this.lista.inserir(22);
-        this.lista.inserir(33);
-        assertEquals("11 22 33", this.lista.imprimir());
+        for (int i = 1; i <= 8; i++) this.lista.inserir(i);
+        assertEquals("1 2 3 4 5 6 7 8", this.lista.imprimir());
     }
 }

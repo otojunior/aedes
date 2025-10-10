@@ -47,7 +47,9 @@ public class Lista {
             strjoin.add(String.valueOf(atual.valor));
             atual = atual.proximo;
         }
-        return strjoin.toString();
+        return strjoin.length() > 0
+            ? strjoin.toString()
+            : "[Lista Vazia]";
     }
 
     /**
@@ -122,8 +124,8 @@ public class Lista {
             return i;
         } else {
             throw new NoSuchElementException(
-                "Elemento " + valor + 
-                " pesquisado não encontrado na lista.");
+                "Elemento %d pesquisado n\u00E3o encontrado na lista"
+                .formatted(valor));
         }
     }
     
@@ -132,27 +134,31 @@ public class Lista {
      * @param posicao Posição do elemento a ser removido.
      */
     public void remover(int posicao) {
-        No atual = this.obter(posicao);
-        // Caso 1: Remover no inicio
-        if (atual == this.primeiro) {
-            this.primeiro = this.primeiro.proximo;
-            if (this.primeiro != null) {
-                this.primeiro.anterior = null;
+        if (this.primeiro != null) {
+            No atual = this.obter(posicao);
+            // Caso 1: Remover no inicio
+            if (atual == this.primeiro) {
+                this.primeiro = this.primeiro.proximo;
+                if (this.primeiro != null) {
+                    this.primeiro.anterior = null;
+                }
             }
+            // Caso 2: Remover no fim
+            else if (atual == this.ultimo) {
+                this.ultimo = this.ultimo.anterior;
+                this.ultimo.proximo = null;
+            }
+            // Caso 3: Remover no meio
+            else {
+                No esquerda = atual.anterior;
+                No direita = atual.proximo;
+                esquerda.proximo = direita;
+                direita.anterior = esquerda;
+            }
+            this.tamanho--;
+        } else {
+            throw new NoSuchElementException("Lista Vazia");
         }
-        // Caso 2: Remover no fim
-        else if (atual == this.ultimo) {
-            this.ultimo = this.ultimo.anterior;
-            this.ultimo.proximo = null; 
-        }
-        // Caso 3: Remover no meio
-        else {
-            No esquerda = atual.anterior;
-            No direita = atual.proximo;
-            esquerda.proximo = direita;
-            direita.anterior = esquerda;
-        }
-        this.tamanho--;
     }
 
     /**
@@ -210,7 +216,7 @@ public class Lista {
              */
             if (posicao < this.tamanho / 2) {
                 No atual = this.primeiro;
-                for (int i = 0; i != posicao && i < this.tamanho; i++)
+                for (int i = 0; i < posicao; i++)
                     atual = atual.proximo;
                 return atual;
             }
@@ -220,20 +226,14 @@ public class Lista {
              */
              else {
                  No atual = this.ultimo;
-                 for (int i = this.tamanho - 1; i != posicao && i >= 0; i--)
+                 for (int i = this.tamanho - 1; i > posicao; i--)
                      atual = atual.anterior;
                  return atual;
             }
         } else {
-            if (this.tamanho == 0) {
-                throw new IndexOutOfBoundsException("Lista vazia.");
-            } else {
-                throw new IndexOutOfBoundsException(
-                    ("Erro ao acessar a posição %d. " +
-                    "Só é permitido posições entre 0 e %d.")
-                    .formatted(posicao, this.tamanho-1));
-                
-            }
+            throw new IndexOutOfBoundsException(
+                "Posi\u00E7\u00E3o %d inv\u00E1lida para lista de tamanho %d"
+                .formatted(posicao, this.tamanho));
         }
     }
 }
