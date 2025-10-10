@@ -20,7 +20,8 @@ import org.junit.jupiter.api.TestMethodOrder;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Pilha")
-class PilhaTest implements PilhaFilaTest {
+@Order(1)
+class PilhaTest {
     private Pilha pilha;
 
     /**
@@ -37,8 +38,7 @@ class PilhaTest implements PilhaFilaTest {
     @Test
     @Order(1)
     @DisplayName("Pilha: Inserção do 1o. elemento")
-    @Override
-    public void testInserir1oElemento() {
+    void testInserir1oElemento() {
         this.pilha.inserir(1);
         assertEquals(1, this.pilha.tamanho());
         assertEquals("1", this.pilha.imprimir());
@@ -50,8 +50,7 @@ class PilhaTest implements PilhaFilaTest {
     @Test
     @Order(2)
     @DisplayName("Pilha: Inserção do 2o. elemento")
-    @Override
-    public void testInserir2oElemento() {
+    void testInserir2oElemento() {
         this.pilha.inserir(1);
         this.pilha.inserir(2);
         assertEquals(2, this.pilha.tamanho());
@@ -59,13 +58,41 @@ class PilhaTest implements PilhaFilaTest {
     }
 
     /**
-     * Teste Pilha: Puxar penúltimo elemento.
+     * Teste Pilha: Inserção do 3o. elemento.
      */
     @Test
     @Order(3)
+    @DisplayName("Pilha: Inserção do 3o. elemento")
+    void testInserir3oElemento() {
+        this.pilha.inserir(1);
+        this.pilha.inserir(2);
+        this.pilha.inserir(3);
+        assertEquals(3, this.pilha.tamanho());
+        assertEquals("3 2 1", this.pilha.imprimir());
+    }
+
+    /**
+     * Teste Pilha: Puxar antepenúltimo elemento.
+     */
+    @Test
+    @Order(4)
+    @DisplayName("Pilha: Puxar antepenúltimo elemento")
+    void testPuxarAntepenultimoElemento() {
+        this.pilha.inserir(1);
+        this.pilha.inserir(2);
+        this.pilha.inserir(3);
+        int valor = this.pilha.puxar();
+        assertEquals(2, this.pilha.tamanho());
+        assertEquals(3, valor);
+    }
+
+    /**
+     * Teste Pilha: Puxar penúltimo elemento.
+     */
+    @Test
+    @Order(5)
     @DisplayName("Pilha: Puxar penúltimo elemento")
-    @Override
-    public void testPuxarPenultimoElemento() {
+    void testPuxarPenultimoElemento() {
         this.pilha.inserir(1);
         this.pilha.inserir(2);
         int valor = this.pilha.puxar();
@@ -77,10 +104,9 @@ class PilhaTest implements PilhaFilaTest {
      * Teste Pilha: Puxar último elemento.
      */
     @Test
-    @Order(4)
+    @Order(6)
     @DisplayName("Pilha: Puxar último elemento")
-    @Override
-    public void testPuxarUltimoElemento() {
+    void testPuxarUltimoElemento() {
         this.pilha.inserir(1);
         int valor = this.pilha.puxar();
         assertEquals(0, this.pilha.tamanho());
@@ -91,10 +117,9 @@ class PilhaTest implements PilhaFilaTest {
      * Teste Pilha: Obtenção de posição de elemento existente.
      */
     @Test
-    @Order(5)
+    @Order(7)
     @DisplayName("Pilha: Obtenção de posição de elemento existente")
-    @Override
-    public void testObterPosicaoElementoExistente() {
+    void testObterPosicaoElementoExistente() {
         this.pilha.inserir(10);
         this.pilha.inserir(20);
         this.pilha.inserir(30);
@@ -106,10 +131,9 @@ class PilhaTest implements PilhaFilaTest {
      * Teste Pilha: Obtenção de posição de elemento existente.
      */
     @Test
-    @Order(6)
+    @Order(8)
     @DisplayName("Pilha: Obtenção de posição de elemento ausente")
-    @Override
-    public void testObterPosicaoElementoAusente() {
+    void testObterPosicaoElementoAusente() {
         Exception ex = assertThrows(NoSuchElementException.class, () -> {
             this.pilha.inserir(10);
             this.pilha.inserir(20);
@@ -123,10 +147,9 @@ class PilhaTest implements PilhaFilaTest {
      * Teste Pilha: Quantidade de elementos
      */
     @Test
-    @Order(7)
+    @Order(9)
     @DisplayName("Pilha: Quantidade de elementos")
-    @Override
-    public void testQuantidadeElementos() {
+    void testQuantidadeElementos() {
         this.pilha.inserir(1);
         this.pilha.inserir(2);
         this.pilha.inserir(3);
@@ -137,10 +160,9 @@ class PilhaTest implements PilhaFilaTest {
      * Teste de impressão da Pilha.
      */
     @Test
-    @Order(8)
+    @Order(10)
     @DisplayName("Pilha: Impressão")
-    @Override
-    public void testImprimir() {
+    void testImprimir() {
         this.pilha.inserir(11);
         this.pilha.inserir(22);
         this.pilha.inserir(33);
