@@ -20,7 +20,6 @@ import org.junit.jupiter.api.TestMethodOrder;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Fila")
-@Order(2)
 class FilaTest {
     private Fila fila;
 
@@ -128,7 +127,7 @@ class FilaTest {
     }
 
     /**
-     * Teste Fila: Obtenção de posição de elemento existente.
+     * Teste Fila: Obtenção de posição de elemento ausente.
      */
     @Test
     @Order(8)

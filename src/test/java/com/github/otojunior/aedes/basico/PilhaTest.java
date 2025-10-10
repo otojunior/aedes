@@ -20,7 +20,6 @@ import org.junit.jupiter.api.TestMethodOrder;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Pilha")
-@Order(1)
 class PilhaTest {
     private Pilha pilha;
 
@@ -128,7 +127,7 @@ class PilhaTest {
     }
 
     /**
-     * Teste Pilha: Obtenção de posição de elemento existente.
+     * Teste Pilha: Obtenção de posição de elemento ausente.
      */
     @Test
     @Order(8)
