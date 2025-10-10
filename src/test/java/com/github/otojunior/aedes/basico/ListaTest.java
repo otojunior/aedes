@@ -186,10 +186,36 @@ class ListaTest {
     }
 
     /**
-     * Teste Lista: Remoção de elemento no início.
+     * Teste Lista: Remoção de elemento no início em lista vazia.
      */
     @Test
     @Order(12)
+    @DisplayName("Lista: Remoção de elemento no início em lista vazia")
+    void testRemoverInicioListaVazia() {
+        Exception ex = assertThrows(
+            NoSuchElementException.class,
+            () -> this.lista.removerinicio());
+        assertEquals("Lista Vazia", ex.getMessage());
+    }
+
+    /**
+     * Teste Lista: Remoção de único elemento no início.
+     */
+    @Test
+    @Order(13)
+    @DisplayName("Lista: Remoção de único elemento no início")
+    void testRemoverUnicoInicio() {
+        this.lista.inserir(1);
+        this.lista.removerinicio();
+        assertEquals(0, this.lista.tamanho());        
+        assertEquals("", this.lista.imprimir());
+    }
+    
+    /**
+     * Teste Lista: Remoção de elemento no início.
+     */
+    @Test
+    @Order(14)
     @DisplayName("Lista: Remoção de elemento no início")
     void testRemoverInicio() {
         this.lista.inserir(1);
@@ -201,10 +227,36 @@ class ListaTest {
     }
 
     /**
+     * Teste Lista: Remoção de elemento no fim em lista vazia.
+     */
+    @Test
+    @Order(15)
+    @DisplayName("Lista: Remoção de elemento no fim em lista vazia")
+    void testRemoverFimListaVazia() {
+        Exception ex = assertThrows(
+            NoSuchElementException.class,
+            () -> this.lista.removerfim());
+        assertEquals("Lista Vazia", ex.getMessage());
+    }
+
+    /**
+     * Teste Lista: Remoção de único elemento no fim.
+     */
+    @Test
+    @Order(16)
+    @DisplayName("Lista: Remoção de único elemento no fim")
+    void testRemoverUnicoFim() {
+        this.lista.inserir(1);
+        this.lista.removerfim();
+        assertEquals(0, this.lista.tamanho());        
+        assertEquals("", this.lista.imprimir());
+    }
+
+    /**
      * Teste Lista: Remoção de elemento no fim.
      */
     @Test
-    @Order(13)
+    @Order(17)
     @DisplayName("Lista: Remoção de elemento no fim")
     void testRemoverFim() {
         this.lista.inserir(1);
@@ -216,27 +268,72 @@ class ListaTest {
     }
 
     /**
+     * Teste Lista: Remoção de elemento no meio inferior.
+     */
+    @Test
+    @Order(18)
+    @DisplayName("Lista: Remoção de elemento no meio inferior")
+    void testRemoverMeioInferior() {
+        for (int i = 1; i <= 7; i++) this.lista.inserir(i);
+        this.lista.remover(2);
+        assertEquals(6, this.lista.tamanho());
+        assertEquals("1 2 4 5 6 7", this.lista.imprimir());
+    }
+    
+    /**
      * Teste Lista: Remoção de elemento no meio.
      */
     @Test
-    @Order(14)
-    @DisplayName("Lista: Remoção de elemento no meio")
-    void testRemoverMeio() {
-        this.lista.inserir(1);
-        this.lista.inserir(2);
-        this.lista.inserir(3);
-        this.lista.inserir(4);
-        this.lista.inserir(5);
-        this.lista.remover(2);
-        assertEquals(4, this.lista.tamanho());
-        assertEquals("1 2 4 5", this.lista.imprimir());
+    @Order(19)
+    @DisplayName("Lista: Remoção de elemento no meio superior")
+    void testRemoverMeioSuperior() {
+        for (int i = 1; i <= 7; i++) this.lista.inserir(i);
+        this.lista.remover(4);
+        assertEquals(6, this.lista.tamanho());
+        assertEquals("1 2 3 4 6 7", this.lista.imprimir());
+    }
+
+    /**
+     * Teste Lista: Remoção em posição negativa
+     */
+    @Test
+    @Order(20)
+    @DisplayName("Lista: Remoção em posição negativa")
+    void testRemoverPosicaoNegativa() {
+        Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
+            this.lista.inserir(1);
+            this.lista.inserir(2);
+            this.lista.inserir(3);
+            this.lista.remover(-1);
+        });
+        assertEquals(
+            "Erro ao acessar a posição -1. Só é permitido posições entre 0 e 2.",
+            ex.getMessage());
+    }
+
+    /**
+     * Teste Lista: Remoção em posição fora do limite
+     */
+    @Test
+    @Order(21)
+    @DisplayName("Lista: Remoção em posição fora do limite")
+    void testRemoverPosicaoForaLimite() {
+        Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
+            this.lista.inserir(1);
+            this.lista.inserir(2);
+            this.lista.inserir(3);
+            this.lista.remover(99);
+        });
+        assertEquals(
+            "Erro ao acessar a posição 99. Só é permitido posições entre 0 e 2.",
+            ex.getMessage());
     }
 
     /**
      * Teste Lista: Remoção em posição 0 em lista vazia
      */
     @Test
-    @Order(15)
+    @Order(22)
     @DisplayName("Lista: Remoção em posição 0 em lista vazia")
     void testRemoverPosicao0SemElementos() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -249,7 +346,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição 0 em lista com 1 elemento.
      */
     @Test
-    @Order(16)
+    @Order(23)
     @DisplayName("Lista: Remoção em posição 0 em lista com 1 elemento")
     void testRemoverPosicao0Com1Elemento() {
         this.lista.inserir(1);
@@ -262,7 +359,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição 0 em lista com 2 elementos.
      */
     @Test
-    @Order(17)
+    @Order(24)
     @DisplayName("Lista: Remoção em posição 0 em lista com 2 elementos")
     void testRemoverPosicao0Com2Elementos() {
         this.lista.inserir(1);
@@ -276,7 +373,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição 0 em lista com 3 elementos.
      */
     @Test
-    @Order(18)
+    @Order(25)
     @DisplayName("Lista: Remoção em posição 0 em lista com 3 elementos")
     void testRemoverPosicao0Com3Elementos() {
         this.lista.inserir(1);
@@ -291,7 +388,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição 1 em lista vazia
      */
     @Test
-    @Order(19)
+    @Order(26)
     @DisplayName("Lista: Remoção em posição 1 em lista vazia")
     void testRemoverPosicao1SemElementos() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -304,7 +401,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição 1 em lista com 1 elemento.
      */
     @Test
-    @Order(20)
+    @Order(27)
     @DisplayName("Lista: Remoção em posição 1 em lista com 1 elemento")
     void testRemoverPosicao1Com1Elemento() {
         Exception ex = assertThrows(IndexOutOfBoundsException.class, () -> {
@@ -320,7 +417,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição 1 em lista com 2 elementos.
      */
     @Test
-    @Order(21)
+    @Order(28)
     @DisplayName("Lista: Remoção em posição 1 em lista com 2 elementos")
     void testRemoverPosicao1Com2Elementos() {
         this.lista.inserir(1);
@@ -334,7 +431,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição 1 em lista com 3 elementos.
      */
     @Test
-    @Order(22)
+    @Order(29)
     @DisplayName("Lista: Remoção em posição 1 em lista com 3 elementos")
     void testRemoverPosicao1Com3Elementos() {
         this.lista.inserir(1);
@@ -349,7 +446,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição final em lista com 1 elemento.
      */
     @Test
-    @Order(23)
+    @Order(30)
     @DisplayName("Lista: Remoção em posição final em lista com 1 elemento")
     void testRemoverPosicaoFinalCom1Elemento() {
         this.lista.inserir(1);
@@ -362,7 +459,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição final em lista com 2 elementos.
      */
     @Test
-    @Order(24)
+    @Order(31)
     @DisplayName("Lista: Remoção em posição final em lista com 2 elementos")
     void testRemoverPosicaoFinalCom2Elementos() {
         this.lista.inserir(1);
@@ -376,7 +473,7 @@ class ListaTest {
      * Teste Lista: Remoção em posição final em lista com 3 elementos.
      */
     @Test
-    @Order(25)
+    @Order(32)
     @DisplayName("Lista: Remoção em posição final em lista com 3 elementos")
     void testRemoverPosicaoFinalCom3Elementos() {
         this.lista.inserir(1);
@@ -391,7 +488,7 @@ class ListaTest {
      * Teste Lista: Quantidade de elementos
      */
     @Test
-    @Order(26)
+    @Order(33)
     @DisplayName("Lista: Quantidade de elementos")
     void testQuantidadeElementos() {
         this.lista.inserir(1);
@@ -404,7 +501,7 @@ class ListaTest {
      * Teste Lista: Impressão da Lista.
      */
     @Test
-    @Order(27)
+    @Order(34)
     @DisplayName("Lista: Impressão")
     void testImprimir() {
         this.lista.inserir(11);

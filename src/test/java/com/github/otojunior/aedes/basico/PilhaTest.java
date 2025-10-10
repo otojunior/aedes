@@ -71,10 +71,23 @@ class PilhaTest {
     }
 
     /**
-     * Teste Pilha: Puxar antepenúltimo elemento.
+     * Teste Pilha: Puxar elemento em pilha vazia.
      */
     @Test
     @Order(4)
+    @DisplayName("Pilha: Puxar elemento em pilha vazia")
+    void testPuxarElementoPilhaVazia() {
+        Exception ex = assertThrows(NoSuchElementException.class, () -> {
+            this.pilha.puxar();
+        });
+        assertEquals("Pilha Vazia", ex.getMessage());
+    }
+    
+    /**
+     * Teste Pilha: Puxar antepenúltimo elemento.
+     */
+    @Test
+    @Order(5)
     @DisplayName("Pilha: Puxar antepenúltimo elemento")
     void testPuxarAntepenultimoElemento() {
         this.pilha.inserir(1);
@@ -89,7 +102,7 @@ class PilhaTest {
      * Teste Pilha: Puxar penúltimo elemento.
      */
     @Test
-    @Order(5)
+    @Order(6)
     @DisplayName("Pilha: Puxar penúltimo elemento")
     void testPuxarPenultimoElemento() {
         this.pilha.inserir(1);
@@ -103,7 +116,7 @@ class PilhaTest {
      * Teste Pilha: Puxar último elemento.
      */
     @Test
-    @Order(6)
+    @Order(7)
     @DisplayName("Pilha: Puxar último elemento")
     void testPuxarUltimoElemento() {
         this.pilha.inserir(1);
@@ -116,7 +129,7 @@ class PilhaTest {
      * Teste Pilha: Obtenção de posição de elemento existente.
      */
     @Test
-    @Order(7)
+    @Order(8)
     @DisplayName("Pilha: Obtenção de posição de elemento existente")
     void testObterPosicaoElementoExistente() {
         this.pilha.inserir(10);
@@ -130,7 +143,7 @@ class PilhaTest {
      * Teste Pilha: Obtenção de posição de elemento ausente.
      */
     @Test
-    @Order(8)
+    @Order(9)
     @DisplayName("Pilha: Obtenção de posição de elemento ausente")
     void testObterPosicaoElementoAusente() {
         Exception ex = assertThrows(NoSuchElementException.class, () -> {
@@ -146,7 +159,7 @@ class PilhaTest {
      * Teste Pilha: Quantidade de elementos
      */
     @Test
-    @Order(9)
+    @Order(10)
     @DisplayName("Pilha: Quantidade de elementos")
     void testQuantidadeElementos() {
         this.pilha.inserir(1);
@@ -159,7 +172,7 @@ class PilhaTest {
      * Teste de impressão da Pilha.
      */
     @Test
-    @Order(10)
+    @Order(11)
     @DisplayName("Pilha: Impressão")
     void testImprimir() {
         this.pilha.inserir(11);

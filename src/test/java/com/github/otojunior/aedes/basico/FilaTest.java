@@ -69,12 +69,25 @@ class FilaTest {
         assertEquals(3, this.fila.tamanho());
         assertEquals("1 2 3", this.fila.imprimir());
     }
+    
+    /**
+     * Teste Pilha: Puxar elemento em pilha vazia.
+     */
+    @Test
+    @Order(4)
+    @DisplayName("Pilha: Puxar elemento em fila vazia")
+    void testPuxarElementoFilaVazia() {
+        Exception ex = assertThrows(NoSuchElementException.class, () -> {
+            this.fila.puxar();
+        });
+        assertEquals("Fila Vazia", ex.getMessage());
+    }
 
     /**
      * Teste Fila: Puxar antepenúltimo elemento.
      */
     @Test
-    @Order(4)
+    @Order(5)
     @DisplayName("Fila: Puxar antepenúltimo elemento")
     void testPuxarAntepenultimoElemento() {
         this.fila.inserir(1);
@@ -89,7 +102,7 @@ class FilaTest {
      * Teste Fila: Puxar penúltimo elemento.
      */
     @Test
-    @Order(5)
+    @Order(6)
     @DisplayName("Fila: Puxar penúltimo elemento")
     void testPuxarPenultimoElemento() {
         this.fila.inserir(1);
@@ -103,7 +116,7 @@ class FilaTest {
      * Teste Fila: Puxar último elemento.
      */
     @Test
-    @Order(6)
+    @Order(7)
     @DisplayName("Fila: Puxar último elemento")
     void testPuxarUltimoElemento() {
         this.fila.inserir(1);
@@ -116,7 +129,7 @@ class FilaTest {
      * Teste Fila: Obtenção de posição de elemento existente.
      */
     @Test
-    @Order(7)
+    @Order(8)
     @DisplayName("Fila: Obtenção de posição de elemento existente")
     void testObterPosicaoElementoExistente() {
         this.fila.inserir(10);
@@ -130,7 +143,7 @@ class FilaTest {
      * Teste Fila: Obtenção de posição de elemento ausente.
      */
     @Test
-    @Order(8)
+    @Order(9)
     @DisplayName("Fila: Obtenção de posição de elemento ausente")
     void testObterPosicaoElementoAusente() {
         Exception ex = assertThrows(NoSuchElementException.class, () -> {
@@ -146,7 +159,7 @@ class FilaTest {
      * Teste Fila: Quantidade de elementos
      */
     @Test
-    @Order(9)
+    @Order(10)
     @DisplayName("Fila: Quantidade de elementos")
     void testQuantidadeElementos() {
         this.fila.inserir(1);
@@ -159,7 +172,7 @@ class FilaTest {
      * Teste de impressão da Fila.
      */
     @Test
-    @Order(10)
+    @Order(11)
     @DisplayName("Fila: Impressão")
     void testImprimir() {
         this.fila.inserir(11);

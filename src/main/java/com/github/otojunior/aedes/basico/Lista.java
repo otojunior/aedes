@@ -143,9 +143,7 @@ public class Lista {
         // Caso 2: Remover no fim
         else if (atual == this.ultimo) {
             this.ultimo = this.ultimo.anterior;
-            if (this.ultimo != null) {
-                this.ultimo.proximo = null; 
-            }
+            this.ultimo.proximo = null; 
         }
         // Caso 3: Remover no meio
         else {
@@ -163,9 +161,11 @@ public class Lista {
      */
     public void removerfim() {
         if (this.ultimo != null) {
-            this.ultimo = this.ultimo.anterior;     // anda com o ponteiro para trás
+            this.ultimo = this.ultimo.anterior; // anda com o ponteiro para trás
             if (this.ultimo != null) {
                 this.ultimo.proximo = null;
+            } else {
+                this.primeiro = null;           // lista ficou vazia
             }
             this.tamanho--;
         } else {
@@ -220,7 +220,7 @@ public class Lista {
              */
              else {
                  No atual = this.ultimo;
-                 for (int i = this.tamanho-1 ; i != posicao && i >= 0; i--)
+                 for (int i = this.tamanho - 1; i != posicao && i >= 0; i--)
                      atual = atual.anterior;
                  return atual;
             }
