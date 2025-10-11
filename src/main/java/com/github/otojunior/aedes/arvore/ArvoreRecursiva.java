@@ -37,6 +37,29 @@ public class ArvoreRecursiva implements Arvore {
     private No raiz;
 
     /**
+     * Verifica se um valor existe na árvore.
+     * @param valor Valor a ser verificado.
+     * @return true se o valor existir, false caso contrário.
+     */
+    @Override
+    public boolean existe(int valor) {
+        return existe(raiz, valor);
+    }
+
+    /**
+     * Retorna uma representação em string da árvore em ordem.
+     * @return String representando a árvore em em-ordem.
+     */
+    @Override
+    public String imprimir() {
+        StringBuilder strbuild = new StringBuilder();
+        imprimir(this.raiz, strbuild);
+        return strbuild.length() > 0
+            ? strbuild.toString().trim()
+            : "[Arvore Vazia]";
+    }
+
+    /**
      * Insere um elemento na árvore.
      * @param valor Valor a ser inserido.
      */
@@ -65,14 +88,34 @@ public class ArvoreRecursiva implements Arvore {
     }
 
     /**
-     * Retorna uma representação em string da árvore em ordem.
-     * @return String representando a árvore em em-ordem.
+     * Verifica se um valor existe na árvore recursivamente.
+     * @param no Nó atual.
+     * @param valor Valor a ser verificado.
+     * @return true se o valor existir, false caso contrário.
      */
-    @Override
-    public String imprimir() {
-        StringBuilder strbuild = new StringBuilder();
-        imprimir(this.raiz, strbuild);
-        return strbuild.toString().trim();
+    private boolean existe(No no, int valor) {
+        if (no != null) {
+            if (valor < no.valor)
+                return existe(no.esquerda, valor);
+            else if (valor > no.valor)
+                return existe(no.direita, valor);
+            else return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Percorre a árvore em em-ordem recursivamente.
+     * @param no Nó atual.
+     * @param strbuild StringBuilder para construir a representação em string.
+     */
+    private void imprimir(No no, StringBuilder strbuild) {
+        if (no != null) {
+            imprimir(no.esquerda, strbuild);
+            strbuild.append(no.valor).append(" ");
+            imprimir(no.direita, strbuild);
+        }
     }
 
     /**
@@ -97,38 +140,6 @@ public class ArvoreRecursiva implements Arvore {
     }
 
     /**
-     * Obtém um nó com o valor especificado.
-     * @param valor Valor a ser buscado.
-     * @return Nó encontrado.
-     * @throws NoSuchElementException se o valor não for encontrado.
-     */
-    @SuppressWarnings("unused")
-    private No obter(int valor) {
-        return obter(raiz, valor);
-    }
-
-    /**
-     * Obtém um nó com o valor especificado.
-     * @param no Nó atual.
-     * @param valor Valor a ser buscado.
-     * @return Nó encontrado.
-     * @throws NoSuchElementException se o valor não for encontrado.
-     */
-    private No obter(No no, int valor) {
-        if (no == null) {
-            throw new NoSuchElementException(
-                "Elemento " + valor + 
-                " pesquisado não encontrado na árvore.");
-        } else if (valor < no.valor) {
-            return obter(no.esquerda, valor);
-        } else if (valor > no.valor) {
-            return obter(no.direita, valor);
-        } else {
-            return no;
-        }
-    }
-
-    /**
      * Remove um elemento da árvore recursivamente.
      * @param no Nó atual.
      * @param valor Valor do elemento a ser removido.
@@ -136,52 +147,45 @@ public class ArvoreRecursiva implements Arvore {
      * @throws NoSuchElementException se o valor não for encontrado.
      */
     private No remover(No no, int valor) {
-        if (no == null) {
-                throw new NoSuchElementException("Arvore Vazia");
-        } else {
-            if (valor < no.valor) {
-                no.esquerda = remover(no.esquerda, valor);
-            } else if (valor > no.valor) {
-                no.direita = remover(no.direita, valor);
+        if (raiz != null) {
+            if (no != null) {
+                if (valor < no.valor) {
+                    no.esquerda = remover(no.esquerda, valor);
+                } else if (valor > no.valor) {
+                    no.direita = remover(no.direita, valor);
+                } else {
+                    // Caso 1: nó sem filhos
+                    if (no.esquerda == null && no.direita == null) {
+                        this.tamanho--;
+                        return null;
+                    }
+                    // Caso 2: um filho à direita
+                    else if (no.esquerda == null) {
+                        this.tamanho--;
+                        return no.direita;
+                    }
+                    // Caso 3: um filho à esquerda
+                    else if (no.direita == null) {
+                        this.tamanho--;
+                        return no.esquerda;
+                    }
+                    // Caso 4: dois filhos: substitui pelo menor da subarvore da direita
+                    else {
+                        No sucessor = no.direita;
+                        while (sucessor.esquerda != null)
+                            sucessor = sucessor.esquerda;
+                        no.valor = sucessor.valor;
+                        no.direita = remover(no.direita, sucessor.valor);
+                    }
+                }
+                return no;
             } else {
-                // Caso 1: nó sem filhos
-                if (no.esquerda == null && no.direita == null) {
-                    this.tamanho--;
-                    return null;
-                }
-                // Caso 2: um filho à direita
-                else if (no.esquerda == null) {
-                    this.tamanho--;
-                    return no.direita;
-                }
-                // Caso 3: um filho à esquerda
-                else if (no.direita == null) {
-                    this.tamanho--;
-                    return no.esquerda;
-                }
-                // Caso 4: dois filhos: substitui pelo menor da subarvore da direita
-                else {
-                    No sucessor = no.direita;
-                    while (sucessor.esquerda != null)
-                        sucessor = sucessor.esquerda;
-                    no.valor = sucessor.valor;
-                    no.direita = remover(no.direita, sucessor.valor);
-                }
+                throw new NoSuchElementException(
+                    "Elemento %d n\u00E3o encontrado na \u00E1rvore"
+                    .formatted(valor));
             }
-            return no;
-        }
-    }
-
-    /**
-     * Percorre a árvore em em-ordem recursivamente.
-     * @param no Nó atual.
-     * @param strbuild StringBuilder para construir a representação em string.
-     */
-    private void imprimir(No no, StringBuilder strbuild) {
-        if (no != null) {
-            imprimir(no.esquerda, strbuild);
-            strbuild.append(no.valor).append(" ");
-            imprimir(no.direita, strbuild);
+        } else {
+            throw new NoSuchElementException("Arvore Vazia");
         }
     }
 }

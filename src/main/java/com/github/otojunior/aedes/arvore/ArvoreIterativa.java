@@ -13,9 +13,6 @@ import java.util.NoSuchElementException;
  * @see https://github.com/otojunior
  */
 public class ArvoreIterativa implements Arvore {
-    private No raiz;
-    private int tamanho = 0;
-    
     /**
      * Estrurura de dados No
      * @author Oto Soares Coelho Junior (otojunior@gmail.com)
@@ -37,6 +34,71 @@ public class ArvoreIterativa implements Arvore {
         }
     }
 
+    private No raiz;
+    private int tamanho = 0;
+
+    /**
+     * Busca um valor na árvore.
+     * @param valor Valor a ser buscado.
+     * @return <code>true</code> se o valor for encontrado, <code>false</code> caso
+     * contrário.
+     */
+    @Override
+    public boolean existe(int valor) {
+        No atual = raiz;
+        while (atual != null) {
+            if (valor == atual.valor)
+                return true;
+            atual = (valor < atual.valor)
+                ? atual.esquerda
+                : atual.direita;
+        }
+        return false;
+    }
+
+    /**
+     * Imprime os elementos da árvore em ordem crescente.
+     * Implementação iterativa do percurso em-ordem usando o algoritmo de Morris.
+     * @return String representando a árvore.
+     */
+    public String imprimir() {
+        StringBuilder sb = new StringBuilder();
+        No atual = raiz;
+        while (atual != null) {
+            if (atual.esquerda == null) {
+                // Adiciona o valor à string
+                sb.append(atual.valor).append(" ");
+                atual = atual.direita;
+            } else {
+                // Encontra o predecessor (mais à direita da subárvore esquerda)
+                No prececessor = atual.esquerda;
+                while (prececessor.direita != null && prececessor.direita != atual)
+                    prececessor = prececessor.direita;
+                if (prececessor.direita == null) {
+                    // Cria o link temporário de volta para o nó atual
+                    prececessor.direita = atual;
+                    atual = atual.esquerda;
+                } else {
+                    // Quebra o link temporário e adiciona o valor à string
+                    prececessor.direita = null;
+                    sb.append(atual.valor).append(" ");
+                    atual = atual.direita;
+                }
+            }
+        }
+        // Remove o espaço final, se houver
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+            return sb.toString();
+        } else {
+            return "[Arvore Vazia]";
+        }
+    }
+    
+    /**
+     * Insere um novo elemento na árvore.
+     * @param valor Valor do elemento a ser inserido.
+     */
     @Override
     public void inserir(int valor) {
         No novo = new No(valor);
@@ -66,25 +128,6 @@ public class ArvoreIterativa implements Arvore {
     }
 
     /**
-     * Busca um valor na árvore.
-     * @param valor Valor a ser buscado.
-     * @return <code>true</code> se o valor for encontrado, <code>false</code> caso
-     * contrário.
-     */
-    public boolean buscar(int valor) {
-        No atual = raiz;
-        while (atual != null) {
-            if (valor == atual.valor) {
-                return true;
-            }
-            atual = (valor < atual.valor)
-                ? atual.esquerda
-                : atual.direita;
-        }
-        return false;
-    }
-
-    /**
      * Remove um elemento da árvore.
      * Passo 1: Busca o nó a ser removido (atual) e seu pai (paiatual).
      * Passo 2: Escolha do nó substituto.
@@ -95,7 +138,7 @@ public class ArvoreIterativa implements Arvore {
     @Override
     public void remover(int valor) {
         if (this.raiz == null) {
-            throw new NoSuchElementException("Árvore vazia");
+            throw new NoSuchElementException("Arvore Vazia");
         } else {
             No atual = this.raiz;
             No paiatual = null;
@@ -111,10 +154,7 @@ public class ArvoreIterativa implements Arvore {
             /*
              * Passo 2: Escolha do nó substituto
              */
-            if (atual == null) {
-                throw new NoSuchElementException(
-                    "Elemento " + valor + " não encontrado.");
-            } else {
+            if (atual != null) {
                 No substituto;
                 if (atual.esquerda == null || atual.direita == null) {
                     // Caso 1: Nenhum ou um filho.
@@ -157,7 +197,11 @@ public class ArvoreIterativa implements Arvore {
                     this.raiz = substituto;
                 }
                 this.tamanho--;
-            } 
+            } else {
+                throw new NoSuchElementException(
+                    "Elemento %d n\u00E3o encontrado na \u00E1rvore"
+                    .formatted(valor));
+            }
         }
     }
 
@@ -168,29 +212,5 @@ public class ArvoreIterativa implements Arvore {
     @Override
     public int tamanho() {
         return tamanho;
-    }
-
-    /**
-     * Retorna uma representação em string da árvore em ordem.
-     * @return String representando a árvore em em-ordem.
-     */
-    @Override
-    public String imprimir() {
-        StringBuilder strbuild = new StringBuilder();
-        imprimir(this.raiz, strbuild);
-        return strbuild.toString().trim();
-    }
-
-    /**
-     * Percorre a árvore em em-ordem recursivamente.
-     * @param no Nó atual.
-     * @param strbuild StringBuilder para construir a representação em string.
-     */
-    private void imprimir(No no, StringBuilder strbuild) {
-        if (no != null) {
-            imprimir(no.esquerda, strbuild);
-            strbuild.append(no.valor).append(" ");
-            imprimir(no.direita, strbuild);
-        }
     }
 }

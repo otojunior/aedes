@@ -10,8 +10,9 @@ package com.github.otojunior.aedes.arvore;
  * @see https://github.com/otojunior
  */
 public interface Arvore {
+    public boolean existe(int valor);
+    public String imprimir();
     public void inserir(int valor);
     public void remover(int valor);
     public int tamanho();
-    public String imprimir();
 }
