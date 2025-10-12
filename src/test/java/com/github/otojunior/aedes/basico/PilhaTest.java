@@ -157,7 +157,7 @@ class PilhaTest {
     }
 
     /**
-     * Teste de impressão da Pilha.
+     * Teste Pilha: Impressão
      */
     @Test
     @Order(11)
@@ -165,5 +165,15 @@ class PilhaTest {
     void testImprimir() {
         for (int i = 1; i <= 5; i++) this.pilha.inserir(i);
         assertEquals("5 4 3 2 1", this.pilha.imprimir());
+    }
+
+    /**
+     * Teste Pilha: Impressão de pilha vazia
+     */
+    @Test
+    @Order(12)
+    @DisplayName("Pilha: Impressão de pilha vazia")
+    void testImprimirVazia() {
+        assertEquals("[Pilha Vazia]", this.pilha.imprimir());
     }
 }

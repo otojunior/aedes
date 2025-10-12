@@ -3,37 +3,36 @@ package com.github.otojunior.aedes.hash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 abstract class ConjuntoHashTest {
     ConjuntoHash conjunto;
 
     /**
-     * Verifica se o conjunto contém um elemento.
+     * Teste Conjunto Hash: Impressão de conjunto vazio.
      */
-    void contem() {
-        conjunto.inserir(1);
-        conjunto.inserir(2);
-        conjunto.inserir(3);
-        assertTrue(conjunto.contem(2));
+    @Test
+    @Order(9)
+    @DisplayName("Conjunto Hash: Impressão de conjunto vazio")
+    void testImprimirVazio() {
+        assertEquals("[Conjunto Hash Vazio]", this.conjunto.imprimir());
     }
 
     /**
-     * Verifica se o conjunto não contém um elemento.
+     * Verifica se o conjunto contém um elemento.
      */
-    void naoContem() {
-        conjunto.inserir(1);
-        conjunto.inserir(2);
-        conjunto.inserir(3);
-        assertFalse(conjunto.contem(4));
+    void contem() {
+        for (int i = 1; i <= 3; i++) conjunto.inserir(i);
+        assertTrue(conjunto.contem(2));
     }
 
     /**
      * Impressão do Conjunto.
      */
     String imprimir() {
-        conjunto.inserir(11);
-        conjunto.inserir(22);
-        conjunto.inserir(33);
+        for (int i = 1; i <= 3; i++) conjunto.inserir(i);
         return conjunto.imprimir();
     }
 
@@ -42,15 +41,11 @@ abstract class ConjuntoHashTest {
      * 
      */
     String inserirConjuntoComElementos() {
-        conjunto.inserir(1);
-        conjunto.inserir(2);
-        conjunto.inserir(3);
-        conjunto.inserir(4);
-        conjunto.inserir(5);
+        for (int i = 1; i <= 5; i++) conjunto.inserir(i);
         assertEquals(5, conjunto.tamanho());
         return conjunto.imprimir();
     }
-    
+
     /**
      * Inserção em Conjunto vazia
      */
@@ -59,16 +54,20 @@ abstract class ConjuntoHashTest {
         assertEquals(1, conjunto.tamanho());
         return conjunto.imprimir();
     }
+    
+    /**
+     * Verifica se o conjunto não contém um elemento.
+     */
+    void naoContem() {
+        for (int i = 1; i <= 3; i++) conjunto.inserir(i);
+        assertFalse(conjunto.contem(4));
+    }
 
     /**
      * Remoção de elemento
      */
     String remover() {
-        conjunto.inserir(1);
-        conjunto.inserir(2);
-        conjunto.inserir(3);
-        conjunto.inserir(4);
-        conjunto.inserir(5);
+        for (int i = 1; i <= 5; i++) conjunto.inserir(i);
         conjunto.remover(3);
         assertEquals(4, conjunto.tamanho());
         return conjunto.imprimir();
@@ -78,11 +77,7 @@ abstract class ConjuntoHashTest {
      * Remoção de elemento
      */
     String removerNaoExistente() {
-        conjunto.inserir(1);
-        conjunto.inserir(2);
-        conjunto.inserir(3);
-        conjunto.inserir(4);
-        conjunto.inserir(5);
+        for (int i = 1; i <= 5; i++) conjunto.inserir(i);
         conjunto.remover(9);
         assertEquals(4, conjunto.tamanho());
         return conjunto.imprimir();
@@ -92,9 +87,7 @@ abstract class ConjuntoHashTest {
      * Tamanho (quantidade de elementos) da Conjunto
      */
     void tamanho() {
-        conjunto.inserir(1);
-        conjunto.inserir(2);
-        conjunto.inserir(3);
+        for (int i = 1; i <= 3; i++) conjunto.inserir(i);
         assertEquals(3, conjunto.tamanho());
     }
 }

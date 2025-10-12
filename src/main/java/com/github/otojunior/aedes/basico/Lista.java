@@ -188,6 +188,8 @@ public class Lista {
             this.primeiro = this.primeiro.proximo;  // anda com o ponteiro para frente
             if (this.primeiro != null) {
                 this.primeiro.anterior = null;
+            } else {
+                this.ultimo = null;                 // lista ficou vazia
             }
             this.tamanho--;
         } else {

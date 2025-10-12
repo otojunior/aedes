@@ -62,12 +62,12 @@ public class ArvoreIterativa implements Arvore {
      * @return String representando a árvore.
      */
     public String imprimir() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder strbuild = new StringBuilder();
         No atual = raiz;
         while (atual != null) {
             if (atual.esquerda == null) {
                 // Adiciona o valor à string
-                sb.append(atual.valor).append(" ");
+                strbuild.append(atual.valor).append(" ");
                 atual = atual.direita;
             } else {
                 // Encontra o predecessor (mais à direita da subárvore esquerda)
@@ -81,15 +81,15 @@ public class ArvoreIterativa implements Arvore {
                 } else {
                     // Quebra o link temporário e adiciona o valor à string
                     prececessor.direita = null;
-                    sb.append(atual.valor).append(" ");
+                    strbuild.append(atual.valor).append(" ");
                     atual = atual.direita;
                 }
             }
         }
         // Remove o espaço final, se houver
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 1);
-            return sb.toString();
+        if (strbuild.length() > 0) {
+            strbuild.setLength(strbuild.length() - 1);
+            return strbuild.toString();
         } else {
             return "[Arvore Vazia]";
         }

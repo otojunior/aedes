@@ -24,7 +24,7 @@ public class ConjuntoHash {
     private static class No {
         private int chave;
         private No proximo;
-        
+
         /**
          * Construtor do No. Por padrão, em Java, as propriedades
          * de classe são inicializadas com valor nulo. 
@@ -34,7 +34,7 @@ public class ConjuntoHash {
             this.chave = chave;
         }
     }
-    
+
     private No[] primeiro;
     private int tamanho;
 
@@ -43,7 +43,7 @@ public class ConjuntoHash {
      * A capacidade padrão é um valor grande para minimizar colisões.
      */
     public ConjuntoHash() {
-        this(Integer.MAX_VALUE >> 32);
+        this(1024);
     }
 
     /**
@@ -66,6 +66,30 @@ public class ConjuntoHash {
         while (atual != null && atual.chave != chave)
             atual = atual.proximo;
         return (atual != null);
+    }
+
+    /**
+     * Retorna uma representação em string do conjunto.
+     * @return Representação em string.
+     */
+    public String imprimir() {
+        final String delim1 = "\n";
+        final String delim2 = " ";
+        StringJoiner strjoin1 = new StringJoiner(delim1);
+        for (int i = 0; i < primeiro.length; i++) {
+            if (primeiro[i] != null) {
+                StringJoiner strjoin2 = new StringJoiner(delim2);
+                No atual = primeiro[i];
+                while (atual != null) {
+                    strjoin2.add(String.valueOf(atual.chave));
+                    atual = atual.proximo;
+                }
+                strjoin1.add(i + ": " + strjoin2.toString());
+            }
+        }
+        return strjoin1.length() > 0
+            ? strjoin1.toString()
+            : "[Conjunto Hash Vazio]";
     }
 
     /**
@@ -104,7 +128,9 @@ public class ConjuntoHash {
             }
             this.tamanho--;
         } else {
-            throw new NoSuchElementException("Elemento " + chave + " não encontrado." );
+            throw new NoSuchElementException(
+                "Elemento %d n\u00E3o encontrado"
+                .formatted(chave));
         }
     }
 
@@ -114,28 +140,6 @@ public class ConjuntoHash {
      */
     public int tamanho() {
         return this.tamanho;
-    }
-
-    /**
-     * Retorna uma representação em string do conjunto.
-     * @return Representação em string.
-     */
-    public String imprimir() {
-        final String delim1 = "\n";
-        final String delim2 = " ";
-        StringJoiner strjoin1 = new StringJoiner(delim1);
-        for (int i = 0; i < primeiro.length; i++) {
-            if (primeiro[i] != null) {
-                StringJoiner strjoin2 = new StringJoiner(delim2);
-                No atual = primeiro[i];
-                while (atual != null) {
-                    strjoin2.add(String.valueOf(atual.chave));
-                    atual = atual.proximo;
-                }
-                strjoin1.add(i + ": " + strjoin2.toString());
-            }
-        }
-        return strjoin1.toString();
     }
 
     /**

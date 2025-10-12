@@ -45,7 +45,9 @@ public class Pilha {
             strjoin.add(String.valueOf(atual.valor));
             atual = atual.proximo;
         }
-        return strjoin.toString();
+        return strjoin.length() > 0
+            ? strjoin.toString()
+            : "[Pilha Vazia]";
     }
 
     /**

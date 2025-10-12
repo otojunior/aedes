@@ -156,7 +156,7 @@ class FilaTest {
     }
 
     /**
-     * Teste de impressão da Fila.
+     * Teste Fila: Impressão
      */
     @Test
     @Order(11)
@@ -164,5 +164,15 @@ class FilaTest {
     void testImprimir() {
         for (int i = 1; i <= 5; i++) this.fila.inserir(i);
         assertEquals("1 2 3 4 5", this.fila.imprimir());
+    }
+
+    /**
+     * Teste Fila: Impressão de fila vazia
+     */
+    @Test
+    @Order(12)
+    @DisplayName("Fila: Impressão de fila vazia")
+    void testImprimirVazia() {
+        assertEquals("[Fila Vazia]", this.fila.imprimir());
     }
 }

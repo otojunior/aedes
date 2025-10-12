@@ -8,7 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /**
  * Testes unitários para a classe {@link ConjuntoHash} com colisão.
@@ -16,6 +19,7 @@ import org.junit.jupiter.api.Test;
  * @since 08/10/2025
  * @see https://github.com/otojunior
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Conjunto Hash Com Colisão")
 public class ConjuntoHashComColisaoTest extends ConjuntoHashTest {
     /**
@@ -25,80 +29,87 @@ public class ConjuntoHashComColisaoTest extends ConjuntoHashTest {
     void setup() {
         this.conjunto = new ConjuntoHash(1);
     }
-    
+
     /**
-     * Teste de verificação de ausência de elemento com colisão
+     * Teste Conjunto Hash: Inserção com colisão.
      */
     @Test
-    @DisplayName("Ausencia de elemento com colisão")
-    void testNaoContem() {
-        super.naoContem();
+    @Order(1)
+    @DisplayName("Conjunto Hash: Inserção com colisão.")
+    void testInserir() {
+        assertEquals("0: 5 4 3 2 1", super.inserirConjuntoComElementos());
     }
 
     /**
-     * Teste de verificação de existência de elemento com colisão
+     * Teste Conjunto Hash: Inserção em conjunto vazio com colisão
      */
     @Test
-    @DisplayName("Existência de elemento com colisão")
+    @Order(2)
+    @DisplayName("Conjunto Hash: Inserção em conjunto vazio com colisão")
+    void testInserirConjuntoVazio() {
+        assertEquals("0: 1", super.inserirConjuntoVazio());
+    }
+
+    /**
+     * Teste Conjunto Hash: Verificação de existência de elemento com colisão
+     */
+    @Test
+    @Order(3)
+    @DisplayName("Conjunto Hash: Existência de elemento com colisão")
     void testContem() {
         super.contem();
     }
 
     /**
-     * Teste de impressão do Conjunto.
+     * Teste Conjunto Hash: Ausência de elemento com colisão
      */
     @Test
-    @DisplayName("Impressão do Conjunto com colisão")
-    void testImprimir() {
-        assertEquals("0: 33 22 11", super.imprimir());
+    @Order(4)
+    @DisplayName("Conjunto Hash: Ausência de elemento com colisão")
+    void testNaoContem() {
+        super.naoContem();
     }
 
     /**
-     * Teste de inserção em Conjunto já com elementos com colisão.
+     * Teste Conjunto Hash: Remoção de elemento com colisão
      */
     @Test
-    @DisplayName("Inserção em Conjunto já com elementos com colisão.")
-    void testInserirConjuntoComElementos() {
-        assertEquals("0: 5 4 3 2 1", super.inserirConjuntoComElementos());
-    }
-
-    /**
-     * Teste de inserção em Conjunto vazio com colisão
-     */
-    @Test
-    @DisplayName("Inserção em Conjunto vazio com colisão")
-    void testInserirConjuntoVazio() {
-        String result = super.inserirConjuntoVazio();
-        assertEquals("0: 1", result);
-    }
-    
-    /**
-     * Teste de remoção de elemento com colisão
-     */
-    @Test
-    @DisplayName("Remoção de elemento com colisão")
+    @Order(5)
+    @DisplayName("Conjunto Hash: Remoção de elemento com colisão")
     void testRemover() {
         assertEquals("0: 5 4 2 1", super.remover());
     }
-    
+
     /**
-     * Teste de remoção de elemento com colisão
+     * Teste Conjunto Hash: Remoção de elemento ausente com colisão
      */
     @Test
-    @DisplayName("Remoção de elemento não existente com colisão")
+    @Order(6)
+    @DisplayName("Conjunto Hash: Remoção de elemento ausente com colisão")
     void testRemoverNaoExistente() {
         Exception ex = assertThrows(
             NoSuchElementException.class,
             () -> super.removerNaoExistente());
-        assertEquals("Elemento 9 não encontrado.", ex.getMessage());
+        assertEquals("Elemento 9 n\u00E3o encontrado", ex.getMessage());
     }
-    
+
     /**
-     * Teste de tamanho (quantidade de elementos) da Conjunto com colisão
+     * Teste Conjunto Hash: Quantidade de elementos com colisão
      */
     @Test
-    @DisplayName("Tamanho (quantidade de elementos) do Conjunto com colisão")
+    @Order(7)
+    @DisplayName("Conjunto Hash: Quantidade de elementos com colisão")
     void testTamanho() {
         super.tamanho();
+    }
+
+    /**
+     * Teste Conjunto Hash: Impressão com colisão.
+     */
+    @Test
+    @Order(8)
+    @DisplayName("Conjunto Hash: Impressão com colisão")
+    void testImprimir() {
+        assertEquals("0: 3 2 1", super.imprimir());
     }
 }
