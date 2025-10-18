@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.otojunior.aedes.basico;
+package com.github.otojunior.aedes.pilha;
 
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 28/09/2025
  */
-public class Pilha {
+public class PilhaEncadeada implements Pilha {
     /**
      * Estrurura de dados No
      * @author Oto Soares Coelho Junior (otojunior@gmail.com)
@@ -38,6 +38,7 @@ public class Pilha {
      * Imprime os elementos da pilha na tela.
      * @return String representando a pilha.
      */
+    @Override
     public String imprimir() {
         StringJoiner strjoin = new StringJoiner(" ");
         No atual = this.topo;
@@ -54,6 +55,7 @@ public class Pilha {
      * Insere um elemento no topo da pilha.
      * @param valor Valor a ser inserido.
      */
+    @Override
     public void inserir(int valor) {
         No novo = new No(valor);
         novo.proximo = this.topo;
@@ -66,6 +68,7 @@ public class Pilha {
      * @param posicao Posição requerida.
      * @return No requerido
      */
+    @Override
     public int obterindice(int valor) {
         No atual = this.topo;
         int i = 0;
@@ -81,14 +84,15 @@ public class Pilha {
             return i;
         } else {
             throw new NoSuchElementException(
-                "Elemento " + valor + 
-                " pesquisado não encontrado na pilha.");
+                "Elemento %d pesquisado não encontrado na pilha"
+                .formatted(valor));
         }
     }
 
     /**
      * Remove um elemento do início da pilha.
      */
+    @Override
     public int puxar() {
         if (this.topo != null) {
             No atual = this.topo;
@@ -104,6 +108,7 @@ public class Pilha {
      * Retorna o tamanho da pilha.
      * @return Tamanho da pilha (número de elementos na pilha).
      */
+    @Override
     public int tamanho() {
         return this.tamanho;
     }

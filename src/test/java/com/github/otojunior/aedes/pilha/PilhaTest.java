@@ -1,12 +1,11 @@
 /**
  * 
  */
-package com.github.otojunior.aedes.basico;
+package com.github.otojunior.aedes.pilha;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.NoSuchElementException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -20,16 +19,8 @@ import org.junit.jupiter.api.TestMethodOrder;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Pilha")
-class PilhaTest {
-    private Pilha pilha;
-
-    /**
-     * Configuração inicial antes de cada teste.
-     */
-    @BeforeEach
-    void setup() {
-        this.pilha = new Pilha();
-    }
+abstract class PilhaTest {
+    Pilha pilha;
 
     /**
      * Teste Pilha: Inserção do 1o. elemento.
@@ -142,7 +133,7 @@ class PilhaTest {
             for (int i = 1; i <= 7; i++) this.pilha.inserir(i);
             this.pilha.obterindice(9);
         });
-        assertEquals("Elemento 9 pesquisado não encontrado na pilha.", ex.getMessage());
+        assertEquals("Elemento 9 pesquisado não encontrado na pilha", ex.getMessage());
     }
 
     /**
