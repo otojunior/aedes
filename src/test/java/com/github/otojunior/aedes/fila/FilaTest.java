@@ -1,12 +1,11 @@
 /**
  * 
  */
-package com.github.otojunior.aedes.basico;
+package com.github.otojunior.aedes.fila;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.NoSuchElementException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -20,16 +19,8 @@ import org.junit.jupiter.api.TestMethodOrder;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DisplayName("Fila")
-class FilaTest {
-    private Fila fila;
-
-    /**
-     * Configuração inicial antes de cada teste.
-     */
-    @BeforeEach
-    void setup() {
-        this.fila = new Fila();
-    }
+abstract class FilaTest {
+    Fila fila;
 
     /**
      * Teste Fila: Inserção do 1o. elemento.
@@ -141,7 +132,7 @@ class FilaTest {
             for (int i = 1; i <= 7; i++) this.fila.inserir(i);
             this.fila.obterindice(9);
         });
-        assertEquals("Elemento 9 pesquisado não encontrado na fila.", ex.getMessage());
+        assertEquals("Elemento 9 pesquisado não encontrado na fila", ex.getMessage());
     }
 
     /**

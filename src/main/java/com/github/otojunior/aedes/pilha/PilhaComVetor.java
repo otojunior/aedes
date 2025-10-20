@@ -15,6 +15,10 @@ public class PilhaComVetor implements Pilha {
     private int tamanho;
     private int[] elementos;
 
+    /**
+     * Construtor da Pilha com Vetor.
+     * @param capacidade Capacidade máxima da pilha.
+     */
     public PilhaComVetor(int capacidade) {
         this.capacidade = capacidade;
         this.elementos = new int[capacidade];

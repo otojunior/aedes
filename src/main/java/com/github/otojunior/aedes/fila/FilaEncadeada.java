@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.github.otojunior.aedes.basico;
+package com.github.otojunior.aedes.fila;
 
 import java.util.NoSuchElementException;
 import java.util.StringJoiner;
@@ -11,7 +11,7 @@ import java.util.StringJoiner;
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 28/09/2025
  */
-public class Fila {
+public class FilaEncadeada implements Fila {
     /**
      * Estrurura de dados No
      * @author Oto Soares Coelho Junior (otojunior@gmail.com)
@@ -40,6 +40,7 @@ public class Fila {
      * Imprime os elementos da fila na tela.
      * @return String representando a fila.
      */
+    @Override
     public String imprimir() {
         StringJoiner strjoin = new StringJoiner(" ");
         No atual = this.primeiro;
@@ -56,6 +57,7 @@ public class Fila {
      * Insere um elemento no fim da fila.
      * @param valor Valor a ser inserido.
      */
+    @Override
     public void inserir(int valor) {
         No novo = new No(valor);
         // Caso 1: Fila vazia: inserção do primeiro elemento.
@@ -76,6 +78,7 @@ public class Fila {
      * @param posicao Posição requerida.
      * @return No requerido
      */
+    @Override
     public int obterindice(int valor) {
         No atual = this.primeiro;
         int i = 0;
@@ -91,14 +94,15 @@ public class Fila {
             return i;
         } else {
             throw new NoSuchElementException(
-                "Elemento " + valor + 
-                " pesquisado não encontrado na fila.");
+                "Elemento %d pesquisado não encontrado na fila"
+                .formatted(valor));
         }
     }
 
     /**
      * Remove um elemento do início da fila.
      */
+    @Override
     public int puxar() {
         if (this.primeiro != null) {
             No atual = this.primeiro;
@@ -114,6 +118,7 @@ public class Fila {
      * Retorna o tamanho da fila.
      * @return Tamanho da fila (número de elementos na fila).
      */
+    @Override
     public int tamanho() {
         return this.tamanho;
     }

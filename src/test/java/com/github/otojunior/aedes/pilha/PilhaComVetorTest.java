@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
  * @since 18/10/2025
  * @see https://github.com/otojunior
  */
+@DisplayName("Pilha com Vetor")
 class PilhaComVetorTest extends PilhaTest {
     /**
      * Configuração inicial antes de cada teste.

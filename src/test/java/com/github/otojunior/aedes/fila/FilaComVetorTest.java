@@ -1,21 +1,21 @@
-package com.github.otojunior.aedes.pilha;
+package com.github.otojunior.aedes.fila;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
 /**
- * Teste de unidade da Pilha Encadeada
+ * Teste de unidade da Fila com Vetor
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
- * @since 18/10/2025
+ * @since 20/10/2025
  * @see https://github.com/otojunior
  */
-@DisplayName("Pilha Encadeada")
-class PilhaEncadeadaTest extends PilhaTest {
+@DisplayName("Fila com Vetor")
+class FilaComVetorTest extends FilaTest {
     /**
      * Configuração inicial antes de cada teste.
      */
     @BeforeEach
     void setup() {
-        super.pilha = new PilhaEncadeada();
+        super.fila = new FilaComVetor(100);
     }
 }
