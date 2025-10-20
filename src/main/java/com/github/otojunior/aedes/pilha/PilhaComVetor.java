@@ -28,9 +28,8 @@ public class PilhaComVetor implements Pilha {
     @Override
     public String imprimir() {
         StringJoiner strjoin = new StringJoiner(" ");
-        for (int i = tamanho - 1; i >= 0; i--) {
+        for (int i = (this.tamanho-1); i >= 0; i--)
             strjoin.add(String.valueOf(elementos[i]));
-        }
         return strjoin.length() > 0
             ? strjoin.toString()
             : "[Pilha Vazia]";
@@ -43,9 +42,10 @@ public class PilhaComVetor implements Pilha {
     @Override
     public void inserir(int valor) {
         if (this.tamanho < this.capacidade) {
-            this.elementos[this.tamanho++] = valor;
+            this.elementos[this.tamanho] = valor;
+            this.tamanho++;
         } else {
-            throw new StackOverflowError("Pilha cheia");
+            throw new StackOverflowError("Pilha Cheia");
         }
     }
 
@@ -56,14 +56,14 @@ public class PilhaComVetor implements Pilha {
      */
     @Override
     public int obterindice(int valor) {
-        int i = tamanho - 1;
+        int i = (this.tamanho-1);
 
         /*
          * No caso da pesquisa por valor dentro da pilha, o loop vai parar em
          * duas condições: ou o elemento foi encontrado ou o iterador chegou
          * ao fim da pilha. Estes casos são testados abaixo.
          */
-        for (; i >= 0 && this.elementos[i] != valor ; i--);
+        for (; i >= 0 && this.elementos[i] != valor; i--);
         if (i >= 0) {
             return i;
         } else {
@@ -79,9 +79,10 @@ public class PilhaComVetor implements Pilha {
     @Override
     public int puxar() {
         if (this.tamanho > 0) {
-            int indice = this.tamanho - 1;
+            int indice = (this.tamanho-1);
+            int elemento = this.elementos[indice]; 
             this.tamanho--;
-            return this.elementos[indice];
+            return elemento; 
         } else {
             throw new NoSuchElementException("Pilha Vazia");
         }
