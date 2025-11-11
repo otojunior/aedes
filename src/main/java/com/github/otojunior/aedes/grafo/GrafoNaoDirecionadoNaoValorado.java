@@ -262,20 +262,6 @@ public class GrafoNaoDirecionadoNaoValorado {
         return false;
     }
     
-    private boolean removerarestaunidirecional2(Vertice origem, Vertice destino) {
-        Aresta anterior = null;
-        Aresta atual = origem.primeiraaresta;
-        while (atual != null && atual.destino != destino) {
-            anterior = atual;
-            atual = atual.proxima;
-        }
-        if (atual != null) {
-            if (anterior == null) origem.primeiraaresta = atual.proxima;
-            else anterior.proxima = atual.proxima;
-        }
-        return (atual != null);
-    }
-    
     public static void main(String[] args) {
         GrafoNaoDirecionadoNaoValorado g = new GrafoNaoDirecionadoNaoValorado();
 
