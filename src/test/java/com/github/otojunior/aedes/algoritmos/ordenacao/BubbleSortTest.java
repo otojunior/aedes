@@ -3,7 +3,7 @@ package com.github.otojunior.aedes.algoritmos.ordenacao;
 import org.junit.jupiter.api.DisplayName;
 
 /**
- * Teste unitário para a classe QuickSort.
+ * Teste unitário para a classe BubbleSort.
  */
 @DisplayName("BubbleSort")
 class BubbleSortTest extends AlgoritmoOrdenacaoTest {

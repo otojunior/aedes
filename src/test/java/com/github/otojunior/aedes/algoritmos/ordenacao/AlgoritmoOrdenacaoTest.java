@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 /**
- * Teste unitário para a classe QuickSort.
+ * Teste unitário para classes de ordenação.
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 abstract class AlgoritmoOrdenacaoTest {

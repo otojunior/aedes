@@ -4,14 +4,14 @@
 package com.github.otojunior.aedes.algoritmos.ordenacao;
 
 /**
- * Implementação do algoritmo BubbleSort de ordenação.
+ * Implementação do algoritmo MergeSort de ordenação.
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 11/11/2025
  * @see https://github.com/otojunior
  */
 public class MergeSort implements AlgoritmoOrdenacao {
     /**
-     * Ordena um vetor utilizando o algoritmo BubbleSort.
+     * Ordena um vetor utilizando o algoritmo MergeSort.
      * @param vetor O vetor a ser ordenado.
      */
     @Override

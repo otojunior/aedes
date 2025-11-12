@@ -8,6 +8,7 @@ package com.github.otojunior.aedes.algoritmos.ordenacao;
  * @author Oto Soares Coelho Junior (otojunior@gmail.com)
  * @since 11/11/2025
  * @see https://github.com/otojunior
+ * @see https://rosettacode.org/wiki/Sorting_algorithms/Quicksort
  */
 public class QuickSort implements AlgoritmoOrdenacao {
     /**
@@ -26,22 +27,24 @@ public class QuickSort implements AlgoritmoOrdenacao {
      * @param fim Índice final do vetor.
      */
     private void sort(int[] vetor, int ini, int fim) {
-        int i = ini;
-        int j = fim;
-        int pivo = vetor[ini + (fim - ini) / 2];
-        while (i <= j) {
-            while (vetor[i] < pivo) i++;
-            while (vetor[j] > pivo) j--;
-            if (i<= j) {
-                int aux = vetor[i];
-                vetor[i] = vetor[j];
-                vetor[j] = aux;
-                i++;
-                j--;
+        if (vetor.length > 1) {
+            int i = ini;
+            int j = fim;
+            int pivo = vetor[ini + (fim - ini) / 2];
+            while (i <= j) {
+                while (vetor[i] < pivo) i++;
+                while (vetor[j] > pivo) j--;
+                if (i <= j) {
+                    int aux = vetor[i];
+                    vetor[i] = vetor[j];
+                    vetor[j] = aux;
+                    i++;
+                    j--;
+                }
             }
+            if (ini < j) sort(vetor, ini, j);
+            if (i < fim) sort(vetor, i, fim);
         }
-        if (ini < j) sort(vetor, ini, j);
-        if (i < fim) sort(vetor, i, fim);
     }
 }
 
